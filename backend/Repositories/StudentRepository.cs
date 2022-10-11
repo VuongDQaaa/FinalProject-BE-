@@ -152,7 +152,7 @@ namespace backend.Repositories
                 {
                     throw new AppException("Date of birth is in the future");
                 }
-                var foudedClassroom = _context.Classrooms.Find(studentModel.ClassroomName);
+                var foudedClassroom = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == studentModel.ClassroomName);
                 if (foudedClassroom != null)
                 {
                     var newStudent = new Student
