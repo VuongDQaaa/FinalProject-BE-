@@ -21,7 +21,7 @@ public class AuthorizeAttributeStudent : Attribute, IAuthorizationFilter
         if (allowAnonymous)
             return;
 
-        var user = (Student)context.HttpContext.Items["Student"];
+        var user = (User)context.HttpContext.Items["User"];
         if (user == null || (_roles.Any() && !_roles.Contains(user.Role)))
         {
             // not logged in or role not authorized

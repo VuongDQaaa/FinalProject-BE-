@@ -21,14 +21,14 @@ namespace backend.Controllers
         }
 
         [AllowAnonymousAttribute]
-        [HttpPost("student/[action]")]
+        [HttpPost("[action]")]
         public IActionResult Authenticate(AuthenticateStudentRequest model)
         {
             var response = _service.Authenticate(model);
             return Ok(response);
         }
 
-        [Authorize(Role.Admin)]
+        [AuthorizeAttributeStudent(Role.Student)]
         [HttpGet("all-student")]
         public IActionResult GetAll()
         {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iUqTD8AF9J8E8nDCMukXh/96CUE6i9qHsFH2feIMgTm1g2CRsJwDJEzoDWp8scP38/buze2BQzkFVxJwsBIC0A==",
+  "dgSpecHash": "Mzj5or8yRZCllTldMXSmKUj3oNddxCCPvoH1WJboTrdQrTOTVxETRrmOhWRosfPt9xbO5Q8jNGC6Tc2KNcKifw==",
   "success": true,
-  "projectFilePath": "D:\\Final Project\\FinalProject\\backend\\backend.csproj",
+  "projectFilePath": "D:\\Final Project\\FinalProject-BE-\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
