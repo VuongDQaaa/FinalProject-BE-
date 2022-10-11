@@ -52,9 +52,9 @@ namespace backend.Controllers
 
         [Authorize(Role.Admin)]
         [HttpGet("GetAllActive")]
-        public async Task<List<UserDTO>> GetAllActiveUser(int userId)
+        public async Task<List<UserDTO>> GetAllActiveUser()
         {
-            return await _service.GetAllActiveUser(userId);
+            return await _service.GetAllActiveUser();
         }
 
         [Authorize(Role.Admin)]

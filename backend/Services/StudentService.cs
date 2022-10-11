@@ -46,9 +46,9 @@ namespace backend.Services
             return _context.Students;
         }
 
-        public async Task<List<StudentDTO>> GetAllActiveStudent(int userId)
+        public async Task<List<StudentDTO>> GetAllActiveStudent()
         {
-            return await _repository.GetAllActiveStudent(userId);
+            return await _repository.GetAllActiveStudent();
         }
 
         public Student GetById(int id)
@@ -85,6 +85,11 @@ namespace backend.Services
         public async Task ChangePassWord(UpdatePasswordModel changePassword)
         {
             await _repository.ChangePassWord(changePassword);
+        }
+
+        public async Task<Student> GetStudentById(int studentId)
+        {
+            return await _repository.GetStudentById(studentId);
         }
     }
 }

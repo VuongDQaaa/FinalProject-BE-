@@ -9,7 +9,8 @@ namespace backend.Interfaces
         AuthenticateResponse Authenticate(AuthenticateStudentRequest model);
         public IEnumerable<Student> GetAll();
         public Student GetById(int id);
-        public Task<List<StudentDTO>> GetAllActiveStudent(int userId);
+        public Task<List<StudentDTO>> GetAllActiveStudent();
+        public Task<Student> GetStudentById(int studentId);
         public Task AddStudent(CreateStudentModel studentModel);
         public Task UpdateStudent(UpdateStudentModel studentModel, int studentId);
         public Task DeleteStudent(int id);

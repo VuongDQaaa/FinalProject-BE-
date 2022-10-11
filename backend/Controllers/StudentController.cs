@@ -51,10 +51,18 @@ namespace backend.Controllers
 
         [Authorize(Role.Admin)]
         [HttpGet("GetAllActiveStudent")]
-        public async Task<List<StudentDTO>> GetAllActiveStudent(int userId)
+        public async Task<List<StudentDTO>> GetAllActiveStudent()
         {
-            return await _service.GetAllActiveStudent(userId);
+            return await _service.GetAllActiveStudent();
         }
+
+        [Authorize(Role.Admin)]
+        [HttpGet("student-id/{studentId}")]
+        public async Task<Student> GetStudentById(int studentId)
+        {
+            return await _service.GetStudentById(studentId);
+        }
+
 
         [Authorize(Role.Admin)]
         [HttpPost("Add")]

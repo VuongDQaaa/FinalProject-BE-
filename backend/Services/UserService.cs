@@ -53,9 +53,9 @@ namespace backend.Services
             return new AuthenticateResponse(user, jwtToken);
         }
 
-        public async Task<List<UserDTO>> GetAllActiveUser(int userId)
+        public async Task<List<UserDTO>> GetAllActiveUser()
         {
-            return await _repository.GetAllActiveUser(userId);
+            return await _repository.GetAllActiveUser();
         }
 
         public async Task AddUser(CreateUserModel user)

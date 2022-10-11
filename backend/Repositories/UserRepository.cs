@@ -17,7 +17,7 @@ namespace backend.Repositories
         public Task DisableUser(int id);
         public Task ChangePasswordFirstLogin(FirstLoginModel login);
         public Task ChangePassWord(ChangePasswordModel changePassword);
-        public Task<List<UserDTO>> GetAllActiveUser(int userId);
+        public Task<List<UserDTO>> GetAllActiveUser();
         public Task<User> GetUserById(int id);
     }
     public class UserRepository : IUserRepository
@@ -134,11 +134,11 @@ namespace backend.Repositories
         {
             var userId = "";
             var lastUserId = _context.Users?.OrderByDescending(o => o.UserId).FirstOrDefault()?.UserId + 1;
-            if(userModel.Role == "Admin")
+            if (userModel.Role == "Admin")
             {
                 userId = "AD" + String.Format("{0,0:D4}", lastUserId++);
             }
-            if(userModel.Role == "Teacher")
+            if (userModel.Role == "Teacher")
             {
                 userId = "TC" + String.Format("{0,0:D4}", lastUserId++);
             }
@@ -160,22 +160,14 @@ namespace backend.Repositories
             return null;
         }
 
-        public async Task<List<UserDTO>> GetAllActiveUser(int userId)
+        public async Task<List<UserDTO>> GetAllActiveUser()
         {
-            var item = _context.Users.FirstOrDefault(x => x.UserId == userId);
-            if (item != null)
+            var users = _context.Users.Where(x => x.IsDiabled == false);
+            if (users != null)
             {
-                var users = _context.Users.Where(x => x.IsDiabled == false);
-                if (users != null)
-                {
-                    return await users.Select(x => x.UserEntityToDTO()).ToListAsync();
-                }
-                return null;
+                return await users.Select(x => x.UserEntityToDTO()).ToListAsync();
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public async Task AddUser(CreateUserModel user)
@@ -227,7 +219,7 @@ namespace backend.Repositories
                     throw new AppException("User is under 18. Please select a different date");
                 }
                 var foundUser = await _context.Users.FindAsync(userId);
-                if(foundUser != null)
+                if (foundUser != null)
                 {
                     foundUser.FirstName = user.FirstName;
                     foundUser.LastName = user.LastName;
@@ -267,7 +259,7 @@ namespace backend.Repositories
             try
             {
                 var foundUser = await _context.Users.FindAsync(id);
-                if(foundUser != null)
+                if (foundUser != null)
                 {
                     foundUser.IsDiabled = false;
                     _context.Update(foundUser);

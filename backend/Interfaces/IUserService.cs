@@ -9,7 +9,7 @@ namespace backend.Interfaces
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         public IEnumerable<User> GetAll();
         public User GetById(int id);
-        public Task<List<UserDTO>> GetAllActiveUser(int userId);
+        public Task<List<UserDTO>> GetAllActiveUser();
         public Task AddUser(CreateUserModel user);
         public Task UpdateUser(UpdateUserModel user, int userId);
         public Task DeleteUser(int id);
