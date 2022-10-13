@@ -10,6 +10,7 @@ namespace backend.Utilities
         {
             UserDTO result = new UserDTO
             {
+                userId = entity.UserId,
                 UserName = entity.UserName,
                 PasswordHash = entity.PasswordHash,
                 UserCode = entity.UserCode,

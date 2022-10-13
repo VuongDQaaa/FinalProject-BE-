@@ -2,6 +2,7 @@ namespace backend.DTO
 {
     public class UserDTO
     {
+        public int userId { get; set; }
         public string? UserName { get; set; }
         public string? PasswordHash { get; set; }
         public string? UserCode { get; set; }
