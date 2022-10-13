@@ -7,6 +7,7 @@ namespace backend.DTO
 {
     public class StudentDTO
     {
+        public int StudentId { get; set; }
         public string? UserName { get; set; }
         public string? PasswordHash { get; set; }
         public string? StudentCode { get; set; }

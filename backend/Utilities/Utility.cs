@@ -28,6 +28,7 @@ namespace backend.Utilities
         {
             StudentDTO result = new StudentDTO
             {
+                StudentId = entity.StudentId,
                 UserName = entity.UserName,
                 PasswordHash = entity.PasswordHash,
                 StudentCode = entity.StudentCode,
