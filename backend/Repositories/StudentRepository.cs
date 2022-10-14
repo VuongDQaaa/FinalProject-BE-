@@ -279,7 +279,7 @@ namespace backend.Repositories
                     throw new AppException("Date of birth is in the future");
                 }
                 var foundStudent = await _context.Students.FindAsync(studentId);
-                var foundClassroom = await _context.Classrooms.FindAsync(studentModel.ClassroomName);
+                var foundClassroom = _context.Classrooms.FirstOrDefault( a => a.ClassroomName == studentModel.ClassroomName);
                 if (foundStudent != null && foundClassroom != null)
                 {
                     foundStudent.FirstName = studentModel.FirstName;
