@@ -91,12 +91,5 @@ namespace backend.Controllers
         {
             await _service.DisableUser(userId);
         }
-
-        [Authorize(Role.Admin)]
-        [HttpDelete("Delete/{userId}")]
-        public async Task DeleteUser(int userId)
-        {
-            await _service.DeleteUser(userId);
-        }
     }
 }

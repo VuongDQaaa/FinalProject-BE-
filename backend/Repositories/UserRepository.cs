@@ -13,7 +13,6 @@ namespace backend.Repositories
     {
         public Task AddUser(CreateUserModel user);
         public Task UpdateUser(UpdateUserModel user, int userId);
-        public Task DeleteUser(int id);
         public Task DisableUser(int id);
         public Task ChangePasswordFirstLogin(FirstLoginModel login);
         public Task ChangePassWord(ChangePasswordModel changePassword);
@@ -96,8 +95,7 @@ namespace backend.Repositories
 
             //generate code
             var checkInUserTable = _context.Users.Any(o => o.UserName.Equals(rawusername));
-            var checkInStudentTable = _context.Students.Any(o => o.UserName.Equals(rawusername));
-            if (checkInUserTable && checkInStudentTable)
+            if (checkInUserTable)
             {
                 var postNumber = 0;
                 var flag = true;
@@ -237,23 +235,6 @@ namespace backend.Repositories
             }
         }
 
-        public async Task DeleteUser(int id)
-        {
-            try
-            {
-                var foundUser = await _context.Users.FindAsync(id);
-                if (foundUser != null)
-                {
-                    _context.Users.Remove(foundUser);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
         public async Task DisableUser(int id)
         {
             try
@@ -261,7 +242,7 @@ namespace backend.Repositories
                 var foundUser = await _context.Users.FindAsync(id);
                 if (foundUser != null)
                 {
-                    foundUser.IsDiabled = false;
+                    foundUser.IsDiabled = true;
                     _context.Update(foundUser);
                     await _context.SaveChangesAsync();
                 };

@@ -67,11 +67,6 @@ namespace backend.Services
             await _repository.UpdateStudent(studentModel, studentId);
         }
 
-        public async Task DeleteStudent(int id)
-        {
-            await _repository.DeleteStudent(id);
-        }
-
         public async Task DisableStudent(int id)
         {
             await _repository.DisableStudent(id);

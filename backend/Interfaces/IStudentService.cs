@@ -13,7 +13,6 @@ namespace backend.Interfaces
         public Task<Student> GetStudentById(int studentId);
         public Task AddStudent(CreateStudentModel studentModel);
         public Task UpdateStudent(UpdateStudentModel studentModel, int studentId);
-        public Task DeleteStudent(int id);
         public Task DisableStudent(int id);
         public Task ChangePasswordFirstLogin(StudentFirstLoginModel login);
         public Task ChangePassWord(UpdatePasswordModel changePassword);

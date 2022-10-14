@@ -13,7 +13,6 @@ namespace backend.Repositories
     {
         public Task AddStudent(CreateStudentModel studentModel);
         public Task UpdateStudent(UpdateStudentModel studentModel, int studentId);
-        public Task DeleteStudent(int id);
         public Task DisableStudent(int id);
         public Task ChangePasswordFirstLogin(StudentFirstLoginModel login);
         public Task ChangePassWord(UpdatePasswordModel changePassword);
@@ -94,9 +93,8 @@ namespace backend.Repositories
             var rawusername = (prefix + postfix).ToLower();
 
             //generate code
-            var checkInUserTable = _context.Users.Any(o => o.UserName.Equals(rawusername));
             var checkInStudentTable = _context.Students.Any(o => o.UserName.Equals(rawusername));
-            if (checkInUserTable && checkInStudentTable)
+            if (checkInStudentTable)
             {
                 var postNumber = 0;
                 var flag = true;
@@ -231,23 +229,6 @@ namespace backend.Repositories
             catch (Exception e)
             {
                 throw e;
-            }
-        }
-
-        public async Task DeleteStudent(int id)
-        {
-            try
-            {
-                var foundStudent = await _context.Students.FindAsync(id);
-                if (foundStudent != null)
-                {
-                    _context.Students.Remove(foundStudent);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
             }
         }
 

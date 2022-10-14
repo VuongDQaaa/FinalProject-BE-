@@ -1,4 +1,5 @@
 using backend.Authorization;
+using backend.AuthorizationStudent;
 using backend.Data;
 using backend.Helpers;
 using backend.Interfaces;
@@ -81,6 +82,7 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 
 // custom jwt auth middleware
 app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<JwtMiddlewareStudent>();
 
 app.UseRouting();
 

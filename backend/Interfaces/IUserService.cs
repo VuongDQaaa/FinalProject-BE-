@@ -12,7 +12,6 @@ namespace backend.Interfaces
         public Task<List<UserDTO>> GetAllActiveUser();
         public Task AddUser(CreateUserModel user);
         public Task UpdateUser(UpdateUserModel user, int userId);
-        public Task DeleteUser(int id);
         public Task DisableUser(int id);
         public Task ChangePasswordFirstLogin(FirstLoginModel login);
         public Task ChangePassWord(ChangePasswordModel changePassword);

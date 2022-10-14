@@ -68,11 +68,6 @@ namespace backend.Services
             await _repository.UpdateUser(user, userId);
         }
 
-        public async Task DeleteUser(int id)
-        {
-            await _repository.DeleteUser(id);
-        }
-
         public async Task DisableUser(int id)
         {
             await _repository.DisableUser(id);

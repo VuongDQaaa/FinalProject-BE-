@@ -1,9 +1,10 @@
 using backend.Entities;
 using backend.Enums;
+using backend.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace backend.Authorization;
+namespace backend.AuthorizationStudent;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class AuthorizeAttributeStudent : Attribute, IAuthorizationFilter
 {

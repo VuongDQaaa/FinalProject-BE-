@@ -3,6 +3,7 @@ using backend.Interfaces;
 using backend.Enums;
 using backend.Models.Students;
 using backend.Authorization;
+using backend.AuthorizationStudent;
 using backend.Entities;
 using backend.DTO;
 
@@ -28,25 +29,12 @@ namespace backend.Controllers
             return Ok(response);
         }
 
-        [AuthorizeAttributeStudent(Role.Student)]
+        [Authorize(Role.Admin)]
         [HttpGet("all-student")]
         public IActionResult GetAll()
         {
             var users = _studentService.GetAll();
             return Ok(users);
-        }
-
-        [AuthorizeAttributeStudent(Role.Student)]
-        [HttpGet("detail-student/{id:int}")]
-        public IActionResult GetById(int id)
-        {
-            // only students can access other user records
-            var currentUser = (Student)HttpContext.Items["Student"];
-            if (id != currentUser.StudentId && currentUser.Role != Role.Student)
-                return Unauthorized(new { message = "Unauthorized" });
-
-            var user = _studentService.GetById(id);
-            return Ok(user);
         }
 
         [Authorize(Role.Admin)]
@@ -57,13 +45,11 @@ namespace backend.Controllers
         }
 
         [Authorize(Role.Admin)]
-        [HttpGet("student-id/{studentId}")]
+        [HttpGet("student-detail/{studentId}")]
         public async Task<Student> GetStudentById(int studentId)
         {
             return await _service.GetStudentById(studentId);
         }
-
-
         [Authorize(Role.Admin)]
         [HttpPost("Add")]
         public async Task AddStudent([FromBody]CreateStudentModel studentModel)
@@ -97,13 +83,6 @@ namespace backend.Controllers
         public async Task DisableStudent(int studentId)
         {
             await _service.DisableStudent(studentId);
-        }
-
-        [Authorize(Role.Admin)]
-        [HttpDelete("Delete/{studentId}")]
-        public async Task DeleteStudent(int studentId)
-        {
-            await _service.DeleteStudent(studentId);
         }
     }
 }
