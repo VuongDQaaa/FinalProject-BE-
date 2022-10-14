@@ -12,6 +12,6 @@ namespace backend.Entities
         public int SubjectId { get; set; }
         [Required]
         public string SubjectName { get; set; }
-        public virtual ICollection<AssignedTask> Tasks { get; set; }
+        public virtual ICollection<AssignedTask> AssignedTasks { get; set; }
     }
 }

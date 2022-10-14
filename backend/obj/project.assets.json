@@ -7068,11 +7068,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DELL\\Downloads\\PlanA\\backend\\backend.csproj",
+      "projectUniqueName": "D:\\Final Project\\FinalProject-BE-\\backend\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "C:\\Users\\DELL\\Downloads\\PlanA\\backend\\backend.csproj",
+      "projectPath": "D:\\Final Project\\FinalProject-BE-\\backend\\backend.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DELL\\Downloads\\PlanA\\backend\\obj\\",
+      "outputPath": "D:\\Final Project\\FinalProject-BE-\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"

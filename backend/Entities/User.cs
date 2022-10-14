@@ -38,5 +38,6 @@ namespace backend.Entities
                 return String.Format("{0} {1}", FirstName, LastName);
             }
         }
+        public ICollection<AssignedTask> AssignedTasks { get; set; }
     }
 }

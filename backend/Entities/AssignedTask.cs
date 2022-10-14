@@ -22,5 +22,6 @@ namespace backend.Entities
         public string AutoFill { get; set; }
         [Required]
         public virtual Subject Subject { get; set; }
+        public virtual User Teacher { get; set; }
     }
 }
