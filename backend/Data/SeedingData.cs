@@ -5,6 +5,55 @@ namespace backend.Data
 {
     public static class SeedingData
     {
+        public static IEnumerable<Subject> SeedingSubjects
+        {
+            get
+            {
+                IEnumerable<Subject> result = new List<Subject>(){
+                    new Subject() {
+                        SubjectId = 1,
+                        SubjectName = "Sinh"
+                    },
+                    new Subject() {
+                        SubjectId = 2,
+                        SubjectName = "Toan"
+                    }
+                };
+                return result;
+            }
+        }
+        public static IEnumerable<AssignedTask> SeedingTasks
+        {
+            get{
+                IEnumerable<AssignedTask> result = new List<AssignedTask>(){
+                    new AssignedTask() {
+                        TaskId = 1,
+                        UserId = 2,
+                        UserName = "Teacher",
+                        SubjectId = 1,
+                        SubjectName = "Sinh",
+                        AutoFill = "Teacher - Sinh"
+                    },
+                    new AssignedTask() {
+                        TaskId = 2,
+                        UserId = 2,
+                        UserName = "Teacher",
+                        SubjectId = 2,
+                        SubjectName = "Toan",
+                        AutoFill = "Teacher - Toan"
+                    },
+                    new AssignedTask() {
+                        TaskId = 2,
+                        UserId = 3,
+                        UserName = "Teacher1",
+                        SubjectId = 2,
+                        SubjectName = "Toan",
+                        AutoFill = "Teacher1 - Toan"
+                    },
+                };
+                return result;
+            }
+        }
         public static IEnumerable<Classroom> SeedingClassrooms
         {
             get
@@ -53,6 +102,19 @@ namespace backend.Data
                         Role = Role.Teacher,
                         DateOfBirth = new DateTime(2000,2,23),
                     },
+                    new User() {
+                        UserId = 3,
+                        UserName = "Teacher1",
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Teacher"),
+                        UserCode = "TC2",
+                        FirstName="Do",
+                        LastName="Thu Huong",
+                        Gender = Gender.Female,
+                        IsFirstLogin = false,
+                        IsDiabled = false,
+                        Role = Role.Teacher,
+                        DateOfBirth = new DateTime(2000,2,23),
+                    }
                 };
                 return result;
             }

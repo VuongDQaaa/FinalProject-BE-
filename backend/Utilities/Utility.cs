@@ -33,6 +33,7 @@ namespace backend.Utilities
                 UserName = entity.UserName,
                 PasswordHash = entity.PasswordHash,
                 StudentCode = entity.StudentCode,
+                ClassroomName = entity.ClassroomName,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Gender = entity.Gender.ToString(),
