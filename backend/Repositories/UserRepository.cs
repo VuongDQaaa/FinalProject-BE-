@@ -23,7 +23,7 @@ namespace backend.Repositories
     {
         private MyDbContext _context;
 
-        public UserRepository(MyDbContext context)
+        public UserRepository(MyDbContext context, IAssignedTaskRepository repository)
         {
             _context = context;
         }
@@ -117,8 +117,7 @@ namespace backend.Repositories
         private bool CheckUsernameDb(string username)
         {
             var checkInUserTable = _context.Users.Any(o => o.UserName.Equals(username));
-            var checkInStudentTable = _context.Students.Any(o => o.UserName.Equals(username));
-            if (checkInUserTable && checkInStudentTable)
+            if (checkInUserTable)
             {
                 return true;
             }
@@ -240,12 +239,18 @@ namespace backend.Repositories
             try
             {
                 var foundUser = await _context.Users.FindAsync(id);
+                List<AssignedTask> foundAssignedTasks = _context.Tasks.Where(a => a.UserId == foundUser.UserId).ToList();
                 if (foundUser != null)
                 {
                     foundUser.IsDiabled = true;
                     _context.Update(foundUser);
                     await _context.SaveChangesAsync();
                 };
+                if( foundAssignedTasks != null)
+                {
+                    _context.Tasks.RemoveRange(foundAssignedTasks);
+                    await _context.SaveChangesAsync();
+                }
             }
             catch (Exception e)
             {

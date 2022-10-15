@@ -27,6 +27,7 @@ namespace backend.Repositories
             _context = context;
         }
 
+        //Check valid password
         private bool checkValidPassowrd(string password)
         {
             int countSpace = 0;
@@ -48,6 +49,7 @@ namespace backend.Repositories
             }
         }
 
+        //Check if Date of Birth is in the future
         private bool CheckDateOfBirth(DateTime date)
         {
             if (DateTime.Compare(DateTime.Now, date) < 0)
@@ -60,6 +62,7 @@ namespace backend.Repositories
             }
         }
 
+        //Auto generate username based on first name and last name
         private string GenerateUserName(string? firstname, string? lastname)
         {
             var prefix = "";
@@ -92,7 +95,7 @@ namespace backend.Repositories
 
             var rawusername = (prefix + postfix).ToLower();
 
-            //generate code
+            //generate code in case there are two user with the same first name and last name
             var checkInStudentTable = _context.Students.Any(o => o.UserName.Equals(rawusername));
             if (checkInStudentTable)
             {
@@ -113,11 +116,11 @@ namespace backend.Repositories
             }
         }
 
+        //check if there is any username similar with the rawusername
         private bool CheckUsernameDb(string username)
         {
-            var checkInUserTable = _context.Users.Any(o => o.UserName.Equals(username));
             var checkInStudentTable = _context.Students.Any(o => o.UserName.Equals(username));
-            if (checkInUserTable && checkInStudentTable)
+            if (checkInStudentTable)
             {
                 return true;
             }
@@ -127,14 +130,16 @@ namespace backend.Repositories
             }
         }
 
+        //auto generate Identity code for student
         private string GenerateStudentCode(CreateStudentModel userModel)
         {
             var studentGen = DateTime.Now.Year - 2002;
-            var lastUserId = _context.Users?.OrderByDescending(o => o.UserId).FirstOrDefault()?.UserId + 1;
-            var userId = "ST" + studentGen + String.Format("{0,0:D4}", lastUserId++);
+            var lastStudentId = _context.Students?.OrderByDescending(o => o.StudentId).FirstOrDefault()?.StudentId + 1;
+            var userId = "HSK" +  studentGen + String.Format("{0,0:D4}", lastStudentId++);
             return userId;
         }
 
+        //Auto generate password after creating new account
         private string GeneratePassword(string username)
         {
             return username + "@123456";
@@ -149,6 +154,10 @@ namespace backend.Repositories
                 if (!CheckDateOfBirth(studentModel.DateOfBirth))
                 {
                     throw new AppException("Date of birth is in the future");
+                }
+                if (DateTime.Now.Year - studentModel.DateOfBirth.Year < 15)
+                {
+                    throw new AppException("Student is under 15. Please select a different date");
                 }
                 var foudedClassroom = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == studentModel.ClassroomName);
                 if (foudedClassroom != null)
@@ -279,7 +288,7 @@ namespace backend.Repositories
                     throw new AppException("Date of birth is in the future");
                 }
                 var foundStudent = await _context.Students.FindAsync(studentId);
-                var foundClassroom = _context.Classrooms.FirstOrDefault( a => a.ClassroomName == studentModel.ClassroomName);
+                var foundClassroom = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == studentModel.ClassroomName);
                 if (foundStudent != null && foundClassroom != null)
                 {
                     foundStudent.FirstName = studentModel.FirstName;

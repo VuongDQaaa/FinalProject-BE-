@@ -11,6 +11,7 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class ClassroomController : ControllerBase
     {
+        //Apply dependency injection
         private IClassroomService _service;
         public ClassroomController(IClassroomService service)
         {

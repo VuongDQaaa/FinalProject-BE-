@@ -23,6 +23,19 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Subject",
+                columns: table => new
+                {
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subject", x => x.SubjectId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -74,6 +87,35 @@ namespace backend.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AssignedTask",
+                columns: table => new
+                {
+                    TaskId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AutoFill = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignedTask", x => x.TaskId);
+                    table.ForeignKey(
+                        name: "FK_AssignedTask_Subject_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subject",
+                        principalColumn: "SubjectId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AssignedTask_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "Classroom",
                 columns: new[] { "ClassroomId", "ClassroomName" },
@@ -84,28 +126,53 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Subject",
+                columns: new[] { "SubjectId", "SubjectName" },
+                values: new object[,]
+                {
+                    { 1, "Sinh" },
+                    { 2, "Toan" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "UserId", "DateOfBirth", "FirstName", "Gender", "IsDiabled", "IsFirstLogin", "LastName", "PasswordHash", "Role", "UserCode", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, false, false, "Quy Vuong", "$2a$11$gKsrf/Zfxt5SfA3btVG6fe4etC5iycBSV26h.ufDGzM80Snl7fVTu", 0, "AD1", "Admin" },
-                    { 2, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 0, false, false, "Duy Nam", "$2a$11$l1a2WQ8Mn8C4/aiNAJKk4u9r8uDzykd4bG0V3exf./Ld99IKak5ge", 1, "TC1", "Teacher" }
+                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, false, false, "Quy Vuong", "$2a$11$2MU5c8zjysBb4bgVdixiK.Jjctb.csiu5x0x9zVtAh2cFzk7HOXC2", 0, "AD1", "Admin" },
+                    { 2, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 0, false, false, "Duy Nam", "$2a$11$4i3Zsy533ril/nXmY.UHOO11FyTc1qSaGjK38R0IYaq8WsCCj8tNW", 1, "TC1", "Teacher" },
+                    { 3, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 1, false, false, "Thu Huong", "$2a$11$nbvpkdDo8hIKj3ZbjBNSW.jnTG6vPYQxj7rugxu5gnG1ZctclBbAq", 1, "TC2", "Teacher1" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AssignedTask",
+                columns: new[] { "TaskId", "AutoFill", "SubjectId", "SubjectName", "UserId", "UserName" },
+                values: new object[,]
+                {
+                    { 1, "Teacher - Sinh", 1, "Sinh", 2, "Teacher" },
+                    { 2, "Teacher - Toan", 2, "Toan", 2, "Teacher" },
+                    { 3, "Teacher1 - Toan", 2, "Toan", 3, "Teacher1" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Student",
                 columns: new[] { "StudentId", "ClassroomId", "ClassroomName", "DateOfBirth", "FirstName", "Gender", "IsDiabled", "IsFirstLogin", "LastName", "PasswordHash", "Role", "StudentCode", "UserName" },
-                values: new object[] { 1, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Le", 1, false, false, "Thi Van", "$2a$11$BuROAYK3JmJVkhoNYA8CHOBkFtenroNnhHM2fZyXOOAb9bYfEjBxe", 2, "ST1", "Student1" });
+                values: new object[,]
+                {
+                    { 1, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Le", 1, false, false, "Thi Van", "$2a$11$tnHVFWLEKPiSu0rHZqJieuZcw6kXgIRgbT4gog2mWSCHXcs5.R80y", 2, "ST1", "Student1" },
+                    { 2, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van A", "$2a$11$5ubPA7O3e0hHp91DxHZ/Fe.PkHqYiiLl72Px8jaQvIOXlFvYudFXC", 2, "ST2", "Student2" },
+                    { 3, 2, "10 Toan", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van B", "$2a$11$2aWR8mvDYTnoFULgoH/jaueZuYUw7oUSyzJaZiTt91VwNZnS6epaS", 2, "ST4", "Student3" }
+                });
 
-            migrationBuilder.InsertData(
-                table: "Student",
-                columns: new[] { "StudentId", "ClassroomId", "ClassroomName", "DateOfBirth", "FirstName", "Gender", "IsDiabled", "IsFirstLogin", "LastName", "PasswordHash", "Role", "StudentCode", "UserName" },
-                values: new object[] { 2, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van A", "$2a$11$/1t2OHU4VDHkRfZpy8./YObajrKn4VA1nrMUDo3m0Y3zF8e3K4HFG", 2, "ST2", "Student2" });
+            migrationBuilder.CreateIndex(
+                name: "IX_AssignedTask_SubjectId",
+                table: "AssignedTask",
+                column: "SubjectId");
 
-            migrationBuilder.InsertData(
-                table: "Student",
-                columns: new[] { "StudentId", "ClassroomId", "ClassroomName", "DateOfBirth", "FirstName", "Gender", "IsDiabled", "IsFirstLogin", "LastName", "PasswordHash", "Role", "StudentCode", "UserName" },
-                values: new object[] { 3, 2, "10 Toan", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van B", "$2a$11$lajNbRSbrWTvGPJWPwk1n.Q/cd3jN9j2G8suCDwcotVgWkC7S2ul2", 2, "ST4", "Student3" });
+            migrationBuilder.CreateIndex(
+                name: "IX_AssignedTask_UserId",
+                table: "AssignedTask",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Student_ClassroomId",
@@ -116,7 +183,13 @@ namespace backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AssignedTask");
+
+            migrationBuilder.DropTable(
                 name: "Student");
+
+            migrationBuilder.DropTable(
+                name: "Subject");
 
             migrationBuilder.DropTable(
                 name: "User");

@@ -27,7 +27,11 @@ namespace backend.Repositories
             try
             {
                 var foundClassroom = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == classroomModel.ClassroomName);
-                if (foundClassroom == null)
+                if(foundClassroom != null)
+                {
+                    throw new AppException("This classroom have been added. Please enter a different classroom");
+                }
+                else
                 {
                     var newClassroom = new Classroom
                     {
@@ -35,10 +39,6 @@ namespace backend.Repositories
                     };
                     await _context.Classrooms.AddAsync(newClassroom);
                     await _context.SaveChangesAsync();
-                }
-                else
-                {
-                    throw new AppException("This classroom have been created");
                 }
             }
             catch (Exception e)

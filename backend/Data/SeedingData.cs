@@ -5,55 +5,58 @@ namespace backend.Data
 {
     public static class SeedingData
     {
-        // public static IEnumerable<Subject> SeedingSubjects
-        // {
-        //     get
-        //     {
-        //         IEnumerable<Subject> result = new List<Subject>(){
-        //             new Subject() {
-        //                 SubjectId = 1,
-        //                 SubjectName = "Sinh"
-        //             },
-        //             new Subject() {
-        //                 SubjectId = 2,
-        //                 SubjectName = "Toan"
-        //             }
-        //         };
-        //         return result;
-        //     }
-        // }
-        // public static IEnumerable<AssignedTask> SeedingTasks
-        // {
-        //     get{
-        //         IEnumerable<AssignedTask> result = new List<AssignedTask>(){
-        //             new AssignedTask() {
-        //                 TaskId = 1,
-        //                 UserId = 2,
-        //                 UserName = "Teacher",
-        //                 SubjectId = 1,
-        //                 SubjectName = "Sinh",
-        //                 AutoFill = "Teacher - Sinh"
-        //             },
-        //             new AssignedTask() {
-        //                 TaskId = 2,
-        //                 UserId = 2,
-        //                 UserName = "Teacher",
-        //                 SubjectId = 2,
-        //                 SubjectName = "Toan",
-        //                 AutoFill = "Teacher - Toan"
-        //             },
-        //             new AssignedTask() {
-        //                 TaskId = 2,
-        //                 UserId = 3,
-        //                 UserName = "Teacher1",
-        //                 SubjectId = 2,
-        //                 SubjectName = "Toan",
-        //                 AutoFill = "Teacher1 - Toan"
-        //             },
-        //         };
-        //         return result;
-        //     }
-        // }
+        //Add data for table "Subject"
+        public static IEnumerable<Subject> SeedingSubjects
+        {
+            get
+            {
+                IEnumerable<Subject> result = new List<Subject>(){
+                    new Subject() {
+                        SubjectId = 1,
+                        SubjectName = "Sinh"
+                    },
+                    new Subject() {
+                        SubjectId = 2,
+                        SubjectName = "Toan"
+                    }
+                };
+                return result;
+            }
+        }
+        //Add data for table "Task"
+        public static IEnumerable<AssignedTask> SeedingTasks
+        {
+            get{
+                IEnumerable<AssignedTask> result = new List<AssignedTask>(){
+                    new AssignedTask() {
+                        TaskId = 1,
+                        UserId = 2,
+                        UserName = "Teacher",
+                        SubjectId = 1,
+                        SubjectName = "Sinh",
+                        AutoFill = "Teacher - Sinh"
+                    },
+                    new AssignedTask() {
+                        TaskId = 2,
+                        UserId = 2,
+                        UserName = "Teacher",
+                        SubjectId = 2,
+                        SubjectName = "Toan",
+                        AutoFill = "Teacher - Toan"
+                    },
+                    new AssignedTask() {
+                        TaskId = 3,
+                        UserId = 3,
+                        UserName = "Teacher1",
+                        SubjectId = 2,
+                        SubjectName = "Toan",
+                        AutoFill = "Teacher1 - Toan"
+                    },
+                };
+                return result;
+            }
+        }
+        //Add data for table "Classroom"
         public static IEnumerable<Classroom> SeedingClassrooms
         {
             get
@@ -71,6 +74,7 @@ namespace backend.Data
                 return result;
             }
         }
+        //Add data for table "User"
         public static IEnumerable<User> SeedingUsers
         {
             get
@@ -119,6 +123,7 @@ namespace backend.Data
                 return result;
             }
         }
+        //Add data for table "Student"
         public static IEnumerable<Student> SeedingStudents
         {
             get
