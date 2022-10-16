@@ -238,19 +238,21 @@ namespace backend.Repositories
         {
             try
             {
+                //Auto remove any Assigned tasks related to this disabled use
+                var foundAssignedTasks = _context.Tasks.Where(x => x.UserId == id);
+                if (foundAssignedTasks != null)
+                {
+                    _context.Tasks.RemoveRange(foundAssignedTasks);
+                    await _context.SaveChangesAsync();
+                }
+
                 var foundUser = await _context.Users.FindAsync(id);
-                List<AssignedTask> foundAssignedTasks = _context.Tasks.Where(a => a.UserId == foundUser.UserId).ToList();
                 if (foundUser != null)
                 {
                     foundUser.IsDiabled = true;
                     _context.Update(foundUser);
                     await _context.SaveChangesAsync();
                 };
-                if( foundAssignedTasks != null)
-                {
-                    _context.Tasks.RemoveRange(foundAssignedTasks);
-                    await _context.SaveChangesAsync();
-                }
             }
             catch (Exception e)
             {
