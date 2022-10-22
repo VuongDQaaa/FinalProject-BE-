@@ -5,6 +5,38 @@ namespace backend.Data
 {
     public static class SeedingData
     {
+        //Add data for table "Schedule"
+        public static IEnumerable<Schedule> SeedingSchedules
+        {
+            get
+            {
+                IEnumerable<Schedule> result = new List<Schedule>(){
+                    new Schedule() {
+                        ScheduleId = 1,
+                        Session = Session.Morning,
+                        Period = 1,
+                        Day = Day.Monday,
+                        UserId = 2,
+                        TaskId = 1,
+                        AutoFillClassroom = "Sinh - Teacher",
+                        AutoFillTeacher = "Sinh - 10 Sinh",
+                        ClassroomId = 1
+                    },
+                    new Schedule() {
+                        ScheduleId = 2,
+                        Session = Session.Morning,
+                        Period = 2,
+                        Day = Day.Monday,
+                        UserId = 2,
+                        TaskId = 2,
+                        AutoFillClassroom = "Toan - Teacher",
+                        AutoFillTeacher = "Toan - 10 Sinh",
+                        ClassroomId = 1
+                    },
+                };
+                return result;
+            }
+        }
         //Add data for table "Subject"
         public static IEnumerable<Subject> SeedingSubjects
         {
@@ -26,7 +58,8 @@ namespace backend.Data
         //Add data for table "Task"
         public static IEnumerable<AssignedTask> SeedingTasks
         {
-            get{
+            get
+            {
                 IEnumerable<AssignedTask> result = new List<AssignedTask>(){
                     new AssignedTask() {
                         TaskId = 1,
@@ -64,11 +97,17 @@ namespace backend.Data
                 IEnumerable<Classroom> result = new List<Classroom>() {
                     new Classroom() {
                         ClassroomId = 1,
-                        ClassroomName = "10 Sinh"
+                        Grade = "10",
+                        ClassroomName = "10 Sinh",
+                        StartYear = 2015,
+                        EndYear = 2018
                     },
                     new Classroom() {
                         ClassroomId = 2,
-                        ClassroomName = "10 Toan"
+                        Grade = "10",
+                        ClassroomName = "10 Toan",
+                        StartYear = 2015,
+                        EndYear = 2018,
                     }
                 };
                 return result;

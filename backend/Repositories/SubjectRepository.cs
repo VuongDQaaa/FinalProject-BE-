@@ -60,10 +60,11 @@ namespace backend.Repositories
         {
             try
             {
-                //Auto remove any Assigned task realated to this deleted Subject
                 var foundAssignedTasks = _context.Tasks.Where(x => x.SubjectId == subjectId);
                 if (foundAssignedTasks != null)
                 {
+
+                    //Auto remove any Assigned task realated to this deleted Subject
                     _context.Tasks.RemoveRange(foundAssignedTasks);
                     await _context.SaveChangesAsync();
                 }

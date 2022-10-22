@@ -238,7 +238,14 @@ namespace backend.Repositories
         {
             try
             {
-                //Auto remove any Assigned tasks related to this disabled use
+                //Auto remove any Schedule relatec to thus disabled user
+                var foundSchedules = _context.Schedules.Where(x => x.UserId == id);
+                if(foundSchedules != null)
+                {
+                    _context.Schedules.RemoveRange(foundSchedules);
+                    await _context.SaveChangesAsync();
+                }
+                //Auto remove any Assigned tasks related to this disabled user
                 var foundAssignedTasks = _context.Tasks.Where(x => x.UserId == id);
                 if (foundAssignedTasks != null)
                 {

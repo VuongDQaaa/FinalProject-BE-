@@ -4,7 +4,7 @@
 
 namespace backend.Migrations
 {
-    public partial class Sprint3 : Migration
+    public partial class Sprint4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,42 +13,42 @@ namespace backend.Migrations
                 keyColumn: "StudentId",
                 keyValue: 1,
                 column: "PasswordHash",
-                value: "$2a$11$t4P9kGXMw8BCUqv6IQXZ0.BV4P3CqPObEBHBpQdZ8Eji/0eWc8w/u");
+                value: "$2a$11$uY/Hk3fP/cuU1SBey6KUm.py2qAtSrVP8iX7NeI72WYJooPbkew7W");
 
             migrationBuilder.UpdateData(
                 table: "Student",
                 keyColumn: "StudentId",
                 keyValue: 2,
                 column: "PasswordHash",
-                value: "$2a$11$LonX0U1DEsH2VxUUhywxe.NeT7V7ryyTLMhJpQts71avxFMzmg5Hi");
+                value: "$2a$11$tujhn88VueFsYUrLKupyAOwSgLYcOQ2dy8SYBg5jTzFsBLx3UA34K");
 
             migrationBuilder.UpdateData(
                 table: "Student",
                 keyColumn: "StudentId",
                 keyValue: 3,
                 column: "PasswordHash",
-                value: "$2a$11$VIKY6Mmb4GLDiMzGQt1nyuG9U8qqMsqUEgqnozjZ/.QOxWXUruoB6");
+                value: "$2a$11$W2NOpV3IdTfaMh5zgZpfUuwuZII3N0KhSQ39PdQsXi4hjIGS2A4.O");
 
             migrationBuilder.UpdateData(
                 table: "User",
                 keyColumn: "UserId",
                 keyValue: 1,
                 column: "PasswordHash",
-                value: "$2a$11$owC5ZyXXSDpsDtIsqv0zkeMcDvlaGO.pQGFlly.gu1P7QLNdLQj7e");
+                value: "$2a$11$8KY/2lOYhiyW8IYRGVgi9OFaLm/ZDvQg.BIXFyqHbJb9gyJZvoWau");
 
             migrationBuilder.UpdateData(
                 table: "User",
                 keyColumn: "UserId",
                 keyValue: 2,
                 column: "PasswordHash",
-                value: "$2a$11$Y5E9mARMNoAYICBIyL68U..zn8tkwTF6VtOvHCg.fJy98KU/62glO");
+                value: "$2a$11$cPV9dRuSv5IHV2e9iXdORei0arwGuGyR1ahnfhk0qqKNjKAo4d1J.");
 
             migrationBuilder.UpdateData(
                 table: "User",
                 keyColumn: "UserId",
                 keyValue: 3,
                 column: "PasswordHash",
-                value: "$2a$11$u9rCX3VsC5z4C1Zn0vB2D.yjkaDE6mxqDEERU21N7gffth98ZqVR6");
+                value: "$2a$11$HMmWX7nwEuE7opWM2pR5Uux7R1Wi8kUlstbPdHvPD3TcUJMRezGlG");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -58,42 +58,42 @@ namespace backend.Migrations
                 keyColumn: "StudentId",
                 keyValue: 1,
                 column: "PasswordHash",
-                value: "$2a$11$tnHVFWLEKPiSu0rHZqJieuZcw6kXgIRgbT4gog2mWSCHXcs5.R80y");
+                value: "$2a$11$L8gCXJrDJY4YO70sta4mbu8rmqp0HeBggU9rqCa6zD4oEt3E2QiZ.");
 
             migrationBuilder.UpdateData(
                 table: "Student",
                 keyColumn: "StudentId",
                 keyValue: 2,
                 column: "PasswordHash",
-                value: "$2a$11$5ubPA7O3e0hHp91DxHZ/Fe.PkHqYiiLl72Px8jaQvIOXlFvYudFXC");
+                value: "$2a$11$f/G/ht.3RL/.3QaHkKohDePo0JykcSpbS7W24C5dk6iDMm8ItbyMW");
 
             migrationBuilder.UpdateData(
                 table: "Student",
                 keyColumn: "StudentId",
                 keyValue: 3,
                 column: "PasswordHash",
-                value: "$2a$11$2aWR8mvDYTnoFULgoH/jaueZuYUw7oUSyzJaZiTt91VwNZnS6epaS");
+                value: "$2a$11$15wEmtwOJ9Nm/MHnMuDkceiuO3q97T.9OyWti2/SuvlbjuR/rW116");
 
             migrationBuilder.UpdateData(
                 table: "User",
                 keyColumn: "UserId",
                 keyValue: 1,
                 column: "PasswordHash",
-                value: "$2a$11$2MU5c8zjysBb4bgVdixiK.Jjctb.csiu5x0x9zVtAh2cFzk7HOXC2");
+                value: "$2a$11$RCqDxJ4VXLHn369i9JgpyeOKX0kzU0a/E3G9B2He1EaJe.VlQxpcO");
 
             migrationBuilder.UpdateData(
                 table: "User",
                 keyColumn: "UserId",
                 keyValue: 2,
                 column: "PasswordHash",
-                value: "$2a$11$4i3Zsy533ril/nXmY.UHOO11FyTc1qSaGjK38R0IYaq8WsCCj8tNW");
+                value: "$2a$11$29AzbXmGIH4UbgeuSzv.7eNfl4AkTKwt81UdqX9cXltNK/u7qm.DC");
 
             migrationBuilder.UpdateData(
                 table: "User",
                 keyColumn: "UserId",
                 keyValue: 3,
                 column: "PasswordHash",
-                value: "$2a$11$nbvpkdDo8hIKj3ZbjBNSW.jnTG6vPYQxj7rugxu5gnG1ZctclBbAq");
+                value: "$2a$11$z95FVZSLV1yk4ha4nSE3rONLygDXxgU8P38kuzdR2kpljcB3daMHG");
         }
     }
 }

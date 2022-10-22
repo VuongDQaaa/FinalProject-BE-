@@ -15,7 +15,10 @@ namespace backend.Migrations
                 {
                     ClassroomId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClassroomName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Grade = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClassroomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartYear = table.Column<int>(type: "int", nullable: false),
+                    EndYear = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,8 +44,8 @@ namespace backend.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -63,8 +66,8 @@ namespace backend.Migrations
                 {
                     StudentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -73,8 +76,8 @@ namespace backend.Migrations
                     IsDiabled = table.Column<bool>(type: "bit", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClassroomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClassroomId = table.Column<int>(type: "int", nullable: false)
+                    ClassroomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClassroomId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,7 +87,7 @@ namespace backend.Migrations
                         column: x => x.ClassroomId,
                         principalTable: "Classroom",
                         principalColumn: "ClassroomId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,7 +110,7 @@ namespace backend.Migrations
                         column: x => x.SubjectId,
                         principalTable: "Subject",
                         principalColumn: "SubjectId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AssignedTask_User_UserId",
                         column: x => x.UserId,
@@ -116,13 +119,51 @@ namespace backend.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Schedule",
+                columns: table => new
+                {
+                    ScheduleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Session = table.Column<int>(type: "int", nullable: false),
+                    Period = table.Column<int>(type: "int", nullable: false),
+                    Day = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TaskId = table.Column<int>(type: "int", nullable: false),
+                    AutoFillClassroom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AutoFillTeacher = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClassroomId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedule", x => x.ScheduleId);
+                    table.ForeignKey(
+                        name: "FK_Schedule_AssignedTask_TaskId",
+                        column: x => x.TaskId,
+                        principalTable: "AssignedTask",
+                        principalColumn: "TaskId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Schedule_Classroom_ClassroomId",
+                        column: x => x.ClassroomId,
+                        principalTable: "Classroom",
+                        principalColumn: "ClassroomId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Schedule_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "Classroom",
-                columns: new[] { "ClassroomId", "ClassroomName" },
+                columns: new[] { "ClassroomId", "ClassroomName", "EndYear", "Grade", "StartYear" },
                 values: new object[,]
                 {
-                    { 1, "10 Sinh" },
-                    { 2, "10 Toan" }
+                    { 1, "10 Sinh", 2018, "10", 2015 },
+                    { 2, "10 Toan", 2018, "10", 2015 }
                 });
 
             migrationBuilder.InsertData(
@@ -139,9 +180,9 @@ namespace backend.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "FirstName", "Gender", "IsDiabled", "IsFirstLogin", "LastName", "PasswordHash", "Role", "UserCode", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, false, false, "Quy Vuong", "$2a$11$2MU5c8zjysBb4bgVdixiK.Jjctb.csiu5x0x9zVtAh2cFzk7HOXC2", 0, "AD1", "Admin" },
-                    { 2, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 0, false, false, "Duy Nam", "$2a$11$4i3Zsy533ril/nXmY.UHOO11FyTc1qSaGjK38R0IYaq8WsCCj8tNW", 1, "TC1", "Teacher" },
-                    { 3, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 1, false, false, "Thu Huong", "$2a$11$nbvpkdDo8hIKj3ZbjBNSW.jnTG6vPYQxj7rugxu5gnG1ZctclBbAq", 1, "TC2", "Teacher1" }
+                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, false, false, "Quy Vuong", "$2a$11$RCqDxJ4VXLHn369i9JgpyeOKX0kzU0a/E3G9B2He1EaJe.VlQxpcO", 0, "AD1", "Admin" },
+                    { 2, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 0, false, false, "Duy Nam", "$2a$11$29AzbXmGIH4UbgeuSzv.7eNfl4AkTKwt81UdqX9cXltNK/u7qm.DC", 1, "TC1", "Teacher" },
+                    { 3, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 1, false, false, "Thu Huong", "$2a$11$z95FVZSLV1yk4ha4nSE3rONLygDXxgU8P38kuzdR2kpljcB3daMHG", 1, "TC2", "Teacher1" }
                 });
 
             migrationBuilder.InsertData(
@@ -159,10 +200,20 @@ namespace backend.Migrations
                 columns: new[] { "StudentId", "ClassroomId", "ClassroomName", "DateOfBirth", "FirstName", "Gender", "IsDiabled", "IsFirstLogin", "LastName", "PasswordHash", "Role", "StudentCode", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Le", 1, false, false, "Thi Van", "$2a$11$tnHVFWLEKPiSu0rHZqJieuZcw6kXgIRgbT4gog2mWSCHXcs5.R80y", 2, "ST1", "Student1" },
-                    { 2, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van A", "$2a$11$5ubPA7O3e0hHp91DxHZ/Fe.PkHqYiiLl72Px8jaQvIOXlFvYudFXC", 2, "ST2", "Student2" },
-                    { 3, 2, "10 Toan", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van B", "$2a$11$2aWR8mvDYTnoFULgoH/jaueZuYUw7oUSyzJaZiTt91VwNZnS6epaS", 2, "ST4", "Student3" }
+                    { 1, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Le", 1, false, false, "Thi Van", "$2a$11$L8gCXJrDJY4YO70sta4mbu8rmqp0HeBggU9rqCa6zD4oEt3E2QiZ.", 2, "ST1", "Student1" },
+                    { 2, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van A", "$2a$11$f/G/ht.3RL/.3QaHkKohDePo0JykcSpbS7W24C5dk6iDMm8ItbyMW", 2, "ST2", "Student2" },
+                    { 3, 2, "10 Toan", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van B", "$2a$11$15wEmtwOJ9Nm/MHnMuDkceiuO3q97T.9OyWti2/SuvlbjuR/rW116", 2, "ST4", "Student3" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Schedule",
+                columns: new[] { "ScheduleId", "AutoFillClassroom", "AutoFillTeacher", "ClassroomId", "Day", "Period", "Session", "TaskId", "UserId" },
+                values: new object[] { 1, "Sinh - Teacher", "Sinh - 10 Sinh", 1, 0, 1, 0, 1, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Schedule",
+                columns: new[] { "ScheduleId", "AutoFillClassroom", "AutoFillTeacher", "ClassroomId", "Day", "Period", "Session", "TaskId", "UserId" },
+                values: new object[] { 2, "Toan - Teacher", "Toan - 10 Sinh", 1, 0, 2, 0, 2, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AssignedTask_SubjectId",
@@ -175,6 +226,21 @@ namespace backend.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Schedule_ClassroomId",
+                table: "Schedule",
+                column: "ClassroomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedule_TaskId",
+                table: "Schedule",
+                column: "TaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedule_UserId",
+                table: "Schedule",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Student_ClassroomId",
                 table: "Student",
                 column: "ClassroomId");
@@ -183,19 +249,22 @@ namespace backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AssignedTask");
+                name: "Schedule");
 
             migrationBuilder.DropTable(
                 name: "Student");
+
+            migrationBuilder.DropTable(
+                name: "AssignedTask");
+
+            migrationBuilder.DropTable(
+                name: "Classroom");
 
             migrationBuilder.DropTable(
                 name: "Subject");
 
             migrationBuilder.DropTable(
                 name: "User");
-
-            migrationBuilder.DropTable(
-                name: "Classroom");
         }
     }
 }

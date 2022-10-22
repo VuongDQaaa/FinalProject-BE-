@@ -45,5 +45,28 @@ namespace backend.Utilities
             };
             return result;
         }
+        public static ClassroomScheduleDTO ScheduleEntitytoClassroomDTO(this Schedule entity)
+        {
+            ClassroomScheduleDTO result = new ClassroomScheduleDTO
+            {
+                Session = entity.Session.ToString(),
+                Period = entity.Period,
+                Day = entity.Day.ToString(),
+                AutoFill = entity.AutoFillClassroom
+            };
+            return result;
+        }
+
+        public static TeacherScheduleDTO ScheduleEntitytoTeacherDTO(this Schedule entity)
+        {
+            TeacherScheduleDTO result = new TeacherScheduleDTO
+            {
+                Session = entity.Session.ToString(),
+                Period = entity.Period,
+                Day = entity.Day.ToString(),
+                AutoFill = entity.AutoFillTeacher
+            };
+            return result;
+        }
     }
 }

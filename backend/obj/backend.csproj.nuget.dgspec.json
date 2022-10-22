@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Final Project\\FinalProject-BE-\\backend\\backend.csproj": {}
+    "C:\\Users\\DELL\\Downloads\\Demo\\backend\\backend.csproj": {}
   },
   "projects": {
-    "D:\\Final Project\\FinalProject-BE-\\backend\\backend.csproj": {
+    "C:\\Users\\DELL\\Downloads\\Demo\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Final Project\\FinalProject-BE-\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\Downloads\\Demo\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "D:\\Final Project\\FinalProject-BE-\\backend\\backend.csproj",
+        "projectPath": "C:\\Users\\DELL\\Downloads\\Demo\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\Final Project\\FinalProject-BE-\\backend\\obj\\",
+        "outputPath": "C:\\Users\\DELL\\Downloads\\Demo\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"

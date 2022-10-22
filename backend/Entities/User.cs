@@ -11,9 +11,9 @@ namespace backend.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
-        [Required, MaxLength(250)]
+        [Required]
         public string UserName { get; set; }
-        [Required, MaxLength(250)]
+        [Required]
         [JsonIgnore]
         public string PasswordHash { get; set; }
         [Required]
@@ -39,5 +39,6 @@ namespace backend.Entities
             }
         }
         public ICollection<AssignedTask> AssignedTasks { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

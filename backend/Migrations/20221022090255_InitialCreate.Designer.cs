@@ -12,7 +12,7 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20221014153025_InitialCreate")]
+    [Migration("20221022090255_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,6 +100,16 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EndYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Grade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StartYear")
+                        .HasColumnType("int");
+
                     b.HasKey("ClassroomId");
 
                     b.ToTable("Classroom", (string)null);
@@ -108,12 +118,89 @@ namespace backend.Migrations
                         new
                         {
                             ClassroomId = 1,
-                            ClassroomName = "10 Sinh"
+                            ClassroomName = "10 Sinh",
+                            EndYear = 2018,
+                            Grade = "10",
+                            StartYear = 2015
                         },
                         new
                         {
                             ClassroomId = 2,
-                            ClassroomName = "10 Toan"
+                            ClassroomName = "10 Toan",
+                            EndYear = 2018,
+                            Grade = "10",
+                            StartYear = 2015
+                        });
+                });
+
+            modelBuilder.Entity("backend.Entities.Schedule", b =>
+                {
+                    b.Property<int>("ScheduleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleId"), 1L, 1);
+
+                    b.Property<string>("AutoFillClassroom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AutoFillTeacher")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClassroomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Session")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ScheduleId");
+
+                    b.HasIndex("ClassroomId");
+
+                    b.HasIndex("TaskId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Schedule");
+
+                    b.HasData(
+                        new
+                        {
+                            ScheduleId = 1,
+                            AutoFillClassroom = "Sinh - Teacher",
+                            AutoFillTeacher = "Sinh - 10 Sinh",
+                            ClassroomId = 1,
+                            Day = 0,
+                            Period = 1,
+                            Session = 0,
+                            TaskId = 1,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            ScheduleId = 2,
+                            AutoFillClassroom = "Toan - Teacher",
+                            AutoFillTeacher = "Toan - 10 Sinh",
+                            ClassroomId = 1,
+                            Day = 0,
+                            Period = 2,
+                            Session = 0,
+                            TaskId = 2,
+                            UserId = 2
                         });
                 });
 
@@ -125,11 +212,11 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"), 1L, 1);
 
-                    b.Property<int>("ClassroomId")
+                    b.Property<int?>("ClassroomId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("ClassroomName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -154,8 +241,7 @@ namespace backend.Migrations
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -166,8 +252,7 @@ namespace backend.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StudentId");
 
@@ -187,7 +272,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Thi Van",
-                            PasswordHash = "$2a$11$tnHVFWLEKPiSu0rHZqJieuZcw6kXgIRgbT4gog2mWSCHXcs5.R80y",
+                            PasswordHash = "$2a$11$L8gCXJrDJY4YO70sta4mbu8rmqp0HeBggU9rqCa6zD4oEt3E2QiZ.",
                             Role = 2,
                             StudentCode = "ST1",
                             UserName = "Student1"
@@ -203,7 +288,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Van A",
-                            PasswordHash = "$2a$11$5ubPA7O3e0hHp91DxHZ/Fe.PkHqYiiLl72Px8jaQvIOXlFvYudFXC",
+                            PasswordHash = "$2a$11$f/G/ht.3RL/.3QaHkKohDePo0JykcSpbS7W24C5dk6iDMm8ItbyMW",
                             Role = 2,
                             StudentCode = "ST2",
                             UserName = "Student2"
@@ -219,7 +304,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Van B",
-                            PasswordHash = "$2a$11$2aWR8mvDYTnoFULgoH/jaueZuYUw7oUSyzJaZiTt91VwNZnS6epaS",
+                            PasswordHash = "$2a$11$15wEmtwOJ9Nm/MHnMuDkceiuO3q97T.9OyWti2/SuvlbjuR/rW116",
                             Role = 2,
                             StudentCode = "ST4",
                             UserName = "Student3"
@@ -285,8 +370,7 @@ namespace backend.Migrations
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -297,8 +381,7 @@ namespace backend.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
@@ -314,7 +397,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Quy Vuong",
-                            PasswordHash = "$2a$11$2MU5c8zjysBb4bgVdixiK.Jjctb.csiu5x0x9zVtAh2cFzk7HOXC2",
+                            PasswordHash = "$2a$11$RCqDxJ4VXLHn369i9JgpyeOKX0kzU0a/E3G9B2He1EaJe.VlQxpcO",
                             Role = 0,
                             UserCode = "AD1",
                             UserName = "Admin"
@@ -328,7 +411,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Duy Nam",
-                            PasswordHash = "$2a$11$4i3Zsy533ril/nXmY.UHOO11FyTc1qSaGjK38R0IYaq8WsCCj8tNW",
+                            PasswordHash = "$2a$11$29AzbXmGIH4UbgeuSzv.7eNfl4AkTKwt81UdqX9cXltNK/u7qm.DC",
                             Role = 1,
                             UserCode = "TC1",
                             UserName = "Teacher"
@@ -342,7 +425,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Thu Huong",
-                            PasswordHash = "$2a$11$nbvpkdDo8hIKj3ZbjBNSW.jnTG6vPYQxj7rugxu5gnG1ZctclBbAq",
+                            PasswordHash = "$2a$11$z95FVZSLV1yk4ha4nSE3rONLygDXxgU8P38kuzdR2kpljcB3daMHG",
                             Role = 1,
                             UserCode = "TC2",
                             UserName = "Teacher1"
@@ -354,7 +437,7 @@ namespace backend.Migrations
                     b.HasOne("backend.Entities.Subject", "Subject")
                         .WithMany("AssignedTasks")
                         .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("backend.Entities.User", "Teacher")
@@ -368,19 +451,53 @@ namespace backend.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("backend.Entities.Schedule", b =>
+                {
+                    b.HasOne("backend.Entities.Classroom", "Classroom")
+                        .WithMany("Schedules")
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Entities.AssignedTask", "AssignedTask")
+                        .WithMany("Schedules")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Entities.User", "Teacher")
+                        .WithMany("Schedules")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AssignedTask");
+
+                    b.Navigation("Classroom");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("backend.Entities.Student", b =>
                 {
                     b.HasOne("backend.Entities.Classroom", "Classroom")
                         .WithMany("Students")
                         .HasForeignKey("ClassroomId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("Classroom");
                 });
 
+            modelBuilder.Entity("backend.Entities.AssignedTask", b =>
+                {
+                    b.Navigation("Schedules");
+                });
+
             modelBuilder.Entity("backend.Entities.Classroom", b =>
                 {
+                    b.Navigation("Schedules");
+
                     b.Navigation("Students");
                 });
 
@@ -392,6 +509,8 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Entities.User", b =>
                 {
                     b.Navigation("AssignedTasks");
+
+                    b.Navigation("Schedules");
                 });
 #pragma warning restore 612, 618
         }

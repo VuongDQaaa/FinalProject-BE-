@@ -11,8 +11,15 @@ namespace backend.Entities
         [Required]
         public int ClassroomId { get; set; }
         [Required]
+        public string Grade { get; set; }
+        [Required]
         public string ClassroomName { get; set; }
+        [Required]
+        public int StartYear { get; set; }
+        [Required]
+        public int EndYear { get; set; }
         public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
 
     }
 }

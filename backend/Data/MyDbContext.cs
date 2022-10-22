@@ -12,6 +12,7 @@ namespace backend.Data
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<AssignedTask> Tasks { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +27,7 @@ namespace backend.Data
             .HasOne(a => a.Classroom)
             .WithMany(b => b.Students)
             .HasForeignKey(c => c.ClassroomId)
-            .OnDelete(DeleteBehavior.Restrict)
+            .OnDelete(DeleteBehavior.SetNull)
             .IsRequired();
 
             //AssignedTask-User
@@ -42,7 +43,31 @@ namespace backend.Data
             .HasOne(a => a.Subject)
             .WithMany(b => b.AssignedTasks)
             .HasForeignKey(c => c.SubjectId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+
+            //Schedule-User
+            modelBuilder.Entity<Schedule>()
+            .HasOne(a => a.Teacher)
+            .WithMany(b => b.Schedules)
+            .HasForeignKey(c => c.UserId)
             .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
+
+            //Schedule-Assigned Task
+            modelBuilder.Entity<Schedule>()
+            .HasOne(a => a.AssignedTask)
+            .WithMany(b => b.Schedules)
+            .HasForeignKey(c => c.TaskId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+
+            //Schedule-Classroom
+            modelBuilder.Entity<Schedule>()
+            .HasOne(a => a.Classroom)
+            .WithMany(b => b.Schedules)
+            .HasForeignKey(c => c.ClassroomId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
             //Seeding data
@@ -51,6 +76,7 @@ namespace backend.Data
             modelBuilder.Entity<Classroom>().HasData(SeedingData.SeedingClassrooms);
             modelBuilder.Entity<Subject>().HasData(SeedingData.SeedingSubjects);
             modelBuilder.Entity<AssignedTask>().HasData(SeedingData.SeedingTasks);
+            modelBuilder.Entity<Schedule>().HasData(SeedingData.SeedingSchedules);
         }
     }
 }

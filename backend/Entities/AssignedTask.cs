@@ -23,5 +23,6 @@ namespace backend.Entities
         [Required]
         public virtual Subject Subject { get; set; }
         public virtual User Teacher { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

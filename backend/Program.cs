@@ -43,6 +43,9 @@ builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<IAssignedTaskService, AssingedTaskService>();
 builder.Services.AddScoped<IAssignedTaskRepository, AssignedTaskRepository>();
 
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
+builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
+
 // configure strongly typed settings objects
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);

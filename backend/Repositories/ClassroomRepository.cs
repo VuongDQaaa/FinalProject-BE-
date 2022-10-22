@@ -35,7 +35,10 @@ namespace backend.Repositories
                 {
                     var newClassroom = new Classroom
                     {
-                        ClassroomName = classroomModel.ClassroomName
+                        ClassroomName = classroomModel.ClassroomName,
+                        Grade = classroomModel.Grade,
+                        StartYear = classroomModel.StartYear,
+                        EndYear = classroomModel.StartYear + 3,
                     };
                     await _context.Classrooms.AddAsync(newClassroom);
                     await _context.SaveChangesAsync();
@@ -58,6 +61,8 @@ namespace backend.Repositories
                     if (usedClassroomName == null)
                     {
                         foundClassroom.ClassroomName = classroomModel.ClassroomName;
+                        foundClassroom.StartYear = classroomModel.StartYear;
+                        foundClassroom.EndYear = classroomModel.StartYear + 3;
                         _context.Classrooms.Update(foundClassroom);
                         await _context.SaveChangesAsync();
                     }
@@ -77,6 +82,8 @@ namespace backend.Repositories
         {
             try
             {
+                var foundActiveStudents = _context.Students.FirstOrDefault(x => x.ClassroomId == classroomId && x.IsDiabled == false);
+                if(foundActiveStudents != null) throw new AppException("Please disable all of the student in this classroom");
                 var foundClassroom = await _context.Classrooms.FindAsync(classroomId);
                 if (foundClassroom != null)
                 {
