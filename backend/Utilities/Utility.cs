@@ -94,7 +94,7 @@ namespace backend.Utilities
             return result;
         }
 
-        public static SearchTeacherDTO TeacherEntityToDTO(this UserDTO entity)
+        public static SearchTeacherDTO TeacherEntityToDTO(this User entity)
         {
             SearchTeacherDTO result = new SearchTeacherDTO
             {

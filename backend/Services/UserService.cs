@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using backend.Data;
 using backend.Entities;
 using backend.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
@@ -81,6 +82,11 @@ namespace backend.Services
         public async Task ChangePassWord(ChangePasswordModel changePassword)
         {
             await _repository.ChangePassWord(changePassword);
+        }
+
+        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher()
+        {
+            return await _repository.SearchTeacher();
         }
     }
 }

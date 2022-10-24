@@ -12,8 +12,8 @@ namespace backend.Repositories
     public interface IHistoryRepository
     {
         public Task AddAbsentHistory(int scheduleId, int teacherId, int studentId, UpdateReasonModel reason );
-        Task<ActionResult<List<AbsentHistoryStudentDTO>>> GetAbsentHistoryStudent(int studentId);
-        Task<ActionResult<List<AbsentHistoryTeacherDTO>>> GetAbsentHistoryTeacher(int teacherId);
+        public Task<ActionResult<List<AbsentHistoryStudentDTO>>> GetAbsentHistoryStudent(int studentId);
+        public Task<ActionResult<List<AbsentHistoryTeacherDTO>>> GetAbsentHistoryTeacher(int teacherId);
         public Task UpdateHistory(UpdateReasonModel model, int historyId);
         public Task DeleteHistory(int historyId);
     }

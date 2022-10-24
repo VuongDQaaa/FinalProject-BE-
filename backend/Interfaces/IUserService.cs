@@ -1,6 +1,7 @@
 using backend.DTO;
 using backend.Entities;
 using backend.Models.Users;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Interfaces
 {
@@ -15,5 +16,6 @@ namespace backend.Interfaces
         public Task DisableUser(int id);
         public Task ChangePasswordFirstLogin(FirstLoginModel login);
         public Task ChangePassWord(ChangePasswordModel changePassword);
+        public Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher();
     }
 }

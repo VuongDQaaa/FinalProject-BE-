@@ -38,6 +38,13 @@ namespace backend.Controllers
         }
 
         [Authorize(Role.Admin)]
+        [HttpGet("search-teacher")]
+        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher()
+        {
+            return await _service.SearchTeacher();
+        }
+
+        [Authorize(Role.Admin)]
         [HttpGet("detail/{id:int}")]
         public IActionResult GetById(int id)
         {

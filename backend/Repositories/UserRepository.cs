@@ -6,6 +6,7 @@ using backend.Helpers;
 using backend.Models.Users;
 using backend.Utilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Repositories
 {
@@ -17,6 +18,7 @@ namespace backend.Repositories
         public Task ChangePasswordFirstLogin(FirstLoginModel login);
         public Task ChangePassWord(ChangePasswordModel changePassword);
         public Task<List<UserDTO>> GetAllActiveUser();
+        public Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher();
         public Task<User> GetUserById(int id);
     }
     public class UserRepository : IUserRepository
@@ -319,6 +321,25 @@ namespace backend.Repositories
             {
                 throw e;
             }
+        }
+
+        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher()
+        {
+            if(_context.Users != null)
+            {
+                try
+                {
+                    var teachers = await _context.Users.Where(user => user.IsDiabled == false && user.Role == Role.Teacher)
+                                                        .Select(teacher => teacher.TeacherEntityToDTO())
+                                                        .ToListAsync();
+                    return new OkObjectResult(teachers);
+                }
+                catch (Exception e)
+                {   
+                    throw e;
+                }
+            }
+            return new NoContentResult();
         }
     }
 }
