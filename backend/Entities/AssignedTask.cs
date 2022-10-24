@@ -8,7 +8,6 @@ namespace backend.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
         public int TaskId { get; set; }
         [Required]
         public int UserId { get; set; }

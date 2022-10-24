@@ -8,10 +8,10 @@ namespace backend.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
         public int SubjectId { get; set; }
         [Required]
         public string SubjectName { get; set; }
+        [Required]
         public virtual ICollection<AssignedTask> AssignedTasks { get; set; }
     }
 }

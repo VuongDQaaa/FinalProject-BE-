@@ -9,7 +9,6 @@ namespace backend.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
         public int ScheduleId { get; set; }
         [Required]
         public Session Session { get; set; }

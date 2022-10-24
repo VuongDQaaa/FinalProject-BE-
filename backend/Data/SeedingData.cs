@@ -5,6 +5,40 @@ namespace backend.Data
 {
     public static class SeedingData
     {
+        //Add data for table "AbsentHistory"
+        public static IEnumerable<AbsentHistory> SeedingHistory
+        {
+            get
+            {
+                IEnumerable<AbsentHistory> result = new List<AbsentHistory>(){
+                    new AbsentHistory() {
+                        HistoryId = 1,
+                        StudentId = 1,
+                        TeacherId = 2,
+                        SubjectName = "Sinh",
+                        StudentFullName = "Dao Quy Vuong",
+                        StudentCode = "ST1",
+                        TeacherFullName = "Do Duy Nam",
+                        ClassroomName = "10 Sinh",
+                        CreatedDate = DateTime.Now,
+                        Reason = "No"
+                    },
+                    new AbsentHistory() {
+                        HistoryId = 2,
+                        StudentId = 1,
+                        TeacherId = 3,
+                        SubjectName = "Toan",
+                        StudentFullName = "Dao Quy Vuong",
+                        StudentCode = "ST1",
+                        TeacherFullName = "Do Thu Huong",
+                        ClassroomName = "10 Sinh",
+                        CreatedDate = DateTime.Now,
+                        Reason = "No"
+                    }
+                };
+                return result;
+            }
+        }
         //Add data for table "Schedule"
         public static IEnumerable<Schedule> SeedingSchedules
         {

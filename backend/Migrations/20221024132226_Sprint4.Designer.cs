@@ -12,8 +12,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20221022090255_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221024132226_Sprint4")]
+    partial class Sprint4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,84 @@ namespace backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("backend.Entities.AbsentHistory", b =>
+                {
+                    b.Property<int>("HistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HistoryId"), 1L, 1);
+
+                    b.Property<string>("ClassroomName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SubjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeacherFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HistoryId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("AbsentHistory", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            HistoryId = 1,
+                            ClassroomName = "10 Sinh",
+                            CreatedDate = new DateTime(2022, 10, 24, 20, 22, 25, 385, DateTimeKind.Local).AddTicks(9207),
+                            Reason = "No",
+                            StudentCode = "ST1",
+                            StudentFullName = "Dao Quy Vuong",
+                            StudentId = 1,
+                            SubjectName = "Sinh",
+                            TeacherFullName = "Do Duy Nam",
+                            TeacherId = 2
+                        },
+                        new
+                        {
+                            HistoryId = 2,
+                            ClassroomName = "10 Sinh",
+                            CreatedDate = new DateTime(2022, 10, 24, 20, 22, 25, 385, DateTimeKind.Local).AddTicks(9235),
+                            Reason = "No",
+                            StudentCode = "ST1",
+                            StudentFullName = "Dao Quy Vuong",
+                            StudentId = 1,
+                            SubjectName = "Toan",
+                            TeacherFullName = "Do Thu Huong",
+                            TeacherId = 3
+                        });
+                });
 
             modelBuilder.Entity("backend.Entities.AssignedTask", b =>
                 {
@@ -272,7 +350,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Thi Van",
-                            PasswordHash = "$2a$11$L8gCXJrDJY4YO70sta4mbu8rmqp0HeBggU9rqCa6zD4oEt3E2QiZ.",
+                            PasswordHash = "$2a$11$B8u5p.D7JIADPSjZKS9TC.cBFXgGI./JeMGo4221ESp6cWTx00L9O",
                             Role = 2,
                             StudentCode = "ST1",
                             UserName = "Student1"
@@ -288,7 +366,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Van A",
-                            PasswordHash = "$2a$11$f/G/ht.3RL/.3QaHkKohDePo0JykcSpbS7W24C5dk6iDMm8ItbyMW",
+                            PasswordHash = "$2a$11$LV69lR27SiWW135PIrTUVeB7/6.IdJUuHaFLI1wRwCimHouU1v60S",
                             Role = 2,
                             StudentCode = "ST2",
                             UserName = "Student2"
@@ -304,7 +382,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Van B",
-                            PasswordHash = "$2a$11$15wEmtwOJ9Nm/MHnMuDkceiuO3q97T.9OyWti2/SuvlbjuR/rW116",
+                            PasswordHash = "$2a$11$q3Eq9bQwkGC3Z7/B9t4nveDjfIuM6F0yGGoXgqsvx3YN1Tv5oHHKi",
                             Role = 2,
                             StudentCode = "ST4",
                             UserName = "Student3"
@@ -397,7 +475,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Quy Vuong",
-                            PasswordHash = "$2a$11$RCqDxJ4VXLHn369i9JgpyeOKX0kzU0a/E3G9B2He1EaJe.VlQxpcO",
+                            PasswordHash = "$2a$11$kvLU47GTIJpGkcctpPaTeubQ.cyOIAaQwS.ubYLhYNqGnOQ.055dq",
                             Role = 0,
                             UserCode = "AD1",
                             UserName = "Admin"
@@ -411,7 +489,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Duy Nam",
-                            PasswordHash = "$2a$11$29AzbXmGIH4UbgeuSzv.7eNfl4AkTKwt81UdqX9cXltNK/u7qm.DC",
+                            PasswordHash = "$2a$11$HzGn8N/8lgYibNvKX8yameFK516YVk7qKI8w6n/mCLL6Pn9THRdGW",
                             Role = 1,
                             UserCode = "TC1",
                             UserName = "Teacher"
@@ -425,11 +503,30 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Thu Huong",
-                            PasswordHash = "$2a$11$z95FVZSLV1yk4ha4nSE3rONLygDXxgU8P38kuzdR2kpljcB3daMHG",
+                            PasswordHash = "$2a$11$Tc5Gg0srLkAIwX2re6aQvO/EMPAnn2nmmtZ4KZ43jOkILK8kA0Iwm",
                             Role = 1,
                             UserCode = "TC2",
                             UserName = "Teacher1"
                         });
+                });
+
+            modelBuilder.Entity("backend.Entities.AbsentHistory", b =>
+                {
+                    b.HasOne("backend.Entities.Student", "Student")
+                        .WithMany("AbsentHistories")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("backend.Entities.User", "Teacher")
+                        .WithMany("AbsentHistories")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("backend.Entities.AssignedTask", b =>
@@ -501,6 +598,11 @@ namespace backend.Migrations
                     b.Navigation("Students");
                 });
 
+            modelBuilder.Entity("backend.Entities.Student", b =>
+                {
+                    b.Navigation("AbsentHistories");
+                });
+
             modelBuilder.Entity("backend.Entities.Subject", b =>
                 {
                     b.Navigation("AssignedTasks");
@@ -508,6 +610,8 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Entities.User", b =>
                 {
+                    b.Navigation("AbsentHistories");
+
                     b.Navigation("AssignedTasks");
 
                     b.Navigation("Schedules");

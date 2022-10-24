@@ -43,5 +43,6 @@ namespace backend.Entities
         public string? ClassroomName { get; set; }
         public int? ClassroomId { get; set; }
         public virtual Classroom? Classroom { get; set; }
+        public virtual ICollection<AbsentHistory> AbsentHistories { get; set; }
     }
 }

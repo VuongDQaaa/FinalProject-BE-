@@ -68,5 +68,39 @@ namespace backend.Utilities
             };
             return result;
         }
+
+        public static AbsentHistoryStudentDTO HistoryStudentToDTO(this AbsentHistory entity)
+        {
+            AbsentHistoryStudentDTO result = new AbsentHistoryStudentDTO
+            {
+                CreatedDate = entity.CreatedDate,
+                SubjectName = entity.SubjectName,
+                TeacherFullName = entity.TeacherFullName,
+                Reason = entity.Reason
+            };
+            return result;
+        }
+
+        public static AbsentHistoryTeacherDTO HistoryTeacherToDTO(this AbsentHistory entity)
+        {
+            AbsentHistoryTeacherDTO result = new AbsentHistoryTeacherDTO
+            {
+                CreatedDate = entity.CreatedDate,
+                ClassroomName = entity.ClassroomName,
+                StudentFullName = entity.StudentFullName,
+                StudentCode = entity.StudentCode,
+                Reason = entity.Reason,
+            };
+            return result;
+        }
+
+        public static SearchTeacherDTO TeacherEntityToDTO(this UserDTO entity)
+        {
+            SearchTeacherDTO result = new SearchTeacherDTO
+            {
+                Suggestion = entity.UserCode + " - " + entity.FullName + " - " + entity.UserName
+            };
+            return result;
+        }
     }
 }
