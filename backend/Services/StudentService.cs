@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using backend.Data;
 using backend.Entities;
 using backend.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services
 {
@@ -85,6 +86,11 @@ namespace backend.Services
         public async Task<Student> GetStudentById(int studentId)
         {
             return await _repository.GetStudentById(studentId);
+        }
+
+        public async Task<ActionResult<List<StudentListDTO>>> GetStudentByClassroomId(int classroomId)
+        {
+            return await _repository.GetStudentByClassroomId(classroomId);
         }
     }
 }

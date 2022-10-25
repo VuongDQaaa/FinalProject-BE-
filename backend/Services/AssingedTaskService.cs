@@ -2,6 +2,8 @@ using backend.Interfaces;
 using backend.Repositories;
 using backend.Entities;
 using backend.Models.AsignedTasks;
+using Microsoft.AspNetCore.Mvc;
+using backend.DTO;
 
 namespace backend.Services
 {
@@ -26,6 +28,11 @@ namespace backend.Services
         public async Task<List<AssignedTask>> GetAllAssignedTask()
         {
             return await _repository.GetAllAssignedTask();
+        }
+
+        public async Task<ActionResult<List<AssignedTaskDTO>>> GetAssignedTasksByTeacherId(int teacherId)
+        {
+            return await _repository.GetAssignedTasksByTeacherId(teacherId);
         }
 
         public async Task<AssignedTask> GetTaskById(int taskId)

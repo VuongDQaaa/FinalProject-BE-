@@ -4,6 +4,7 @@ using backend.Models.AsignedTasks;
 using backend.Authorization;
 using backend.Enums;
 using Microsoft.AspNetCore.Mvc;
+using backend.DTO;
 
 namespace backend.Controllers
 {
@@ -36,6 +37,13 @@ namespace backend.Controllers
         public async Task<AssignedTask> GetTaskById(int taskId)
         {
             return await _service.GetTaskById(taskId);
+        }
+
+        [Authorize(Role.Admin)]
+        [HttpGet("get-task/teacher-{teacherId}")]
+        public async Task<ActionResult<List<AssignedTaskDTO>>> GetAssignedTasksByTeacherId(int teacherId)
+        {
+            return await _service.GetAssignedTasksByTeacherId(teacherId);
         }
 
         [Authorize(Role.Admin)]

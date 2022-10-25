@@ -25,6 +25,7 @@ namespace backend.Utilities
             };
             return result;
         }
+
         public static StudentDTO StudentEntityToDTO(this Student entity)
         {
             StudentDTO result = new StudentDTO
@@ -45,9 +46,23 @@ namespace backend.Utilities
             };
             return result;
         }
+        
         public static ClassroomScheduleDTO ScheduleEntitytoClassroomDTO(this Schedule entity)
         {
             ClassroomScheduleDTO result = new ClassroomScheduleDTO
+            {
+                ScheduleId = entity.ScheduleId,
+                Session = entity.Session.ToString(),
+                Period = entity.Period,
+                Day = entity.Day.ToString(),
+                AutoFill = entity.AutoFillClassroom
+            };
+            return result;
+        }
+
+        public static StudentScheduleDTO ScheduleEntitytoStudentDTO(this Schedule entity)
+        {
+            StudentScheduleDTO result = new StudentScheduleDTO
             {
                 Session = entity.Session.ToString(),
                 Period = entity.Period,
@@ -64,6 +79,7 @@ namespace backend.Utilities
                 Session = entity.Session.ToString(),
                 Period = entity.Period,
                 Day = entity.Day.ToString(),
+                ClassroomId = entity.ClassroomId,
                 AutoFill = entity.AutoFillTeacher
             };
             return result;
@@ -100,6 +116,27 @@ namespace backend.Utilities
             {
                 UserId = entity.UserId,
                 Suggestion = entity.UserCode + " - " + entity.FullName + " - " + entity.UserName
+            };
+            return result;
+        }
+
+        public static AssignedTaskDTO AssignedTaskEntityToDTO(this AssignedTask entity)
+        {
+            AssignedTaskDTO result = new AssignedTaskDTO
+            {
+                TaskId = entity.TaskId,
+                AutoFill = entity.AutoFill
+            };
+            return result;
+        }
+
+        public static StudentListDTO StudentListEntityToDTO(this Student entity)
+        {
+            StudentListDTO result = new StudentListDTO
+            {
+                StudentId = entity.StudentId,
+                StudentCode = entity.StudentCode,
+                StudentFullName = entity.FullName
             };
             return result;
         }

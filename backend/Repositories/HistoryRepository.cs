@@ -98,10 +98,10 @@ namespace backend.Repositories
                     var foundStudent = _context.Students.Find(studentId);
                     if(foundStudent != null)
                     {
-                        var AbsentHistories = await _context.AbsentHistories.Where(histories => histories.StudentId == foundStudent.StudentId)
+                        var absentHistories = await _context.AbsentHistories.Where(histories => histories.StudentId == foundStudent.StudentId)
                                                                         .Select(history => history.HistoryStudentToDTO())
                                                                         .ToListAsync();
-                        return new OkObjectResult(AbsentHistories);
+                        return new OkObjectResult(absentHistories);
                     }
                 }
                 catch (Exception e)

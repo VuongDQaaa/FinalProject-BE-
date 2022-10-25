@@ -4,6 +4,7 @@ using backend.Entities;
 using backend.Utilities;
 using backend.Models.Students;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using backend.Helpers;
 using backend.Enums;
 
@@ -17,6 +18,7 @@ namespace backend.Repositories
         public Task ChangePasswordFirstLogin(StudentFirstLoginModel login);
         public Task ChangePassWord(UpdatePasswordModel changePassword);
         public Task<List<StudentDTO>> GetAllActiveStudent();
+        public Task<ActionResult<List<StudentListDTO>>> GetStudentByClassroomId(int classroomId);
         public Task<Student> GetStudentById(int studentId);
     }
     public class StudentRepository : IStudentRepository
@@ -306,6 +308,29 @@ namespace backend.Repositories
             {
                 throw e;
             }
+        }
+
+        public async Task<ActionResult<List<StudentListDTO>>> GetStudentByClassroomId(int classroomId)
+        {
+            if(_context.Students != null)
+            {
+                try
+                {
+                    var foundClassroom = _context.Classrooms.Find(classroomId);
+                    if(foundClassroom != null)
+                    {
+                        var students = await _context.Students.Where(a => a.ClassroomId == classroomId && a.IsDiabled == false)
+                                                        .Select(student => student.StudentListEntityToDTO())
+                                                        .ToListAsync();
+                        return new OkObjectResult(students);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            return new NoContentResult();
         }
     }
 }

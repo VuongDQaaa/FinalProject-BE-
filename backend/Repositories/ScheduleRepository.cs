@@ -14,6 +14,7 @@ namespace backend.Repositories
     {
         public Task AddSchedule(CreateScheduleModel scheduleModel, int classroomId);
         public Task<ActionResult<List<ClassroomScheduleDTO>>> GetSchedulesByClassroomId(int classroomId);
+        public Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId);
         public Task<ActionResult<List<TeacherScheduleDTO>>> GetSchedulesByTeacherId(int teacherId);
         public Task UpdateSchedule(UpdateScheduleModel scheduleModel, int scheduleId);
         public Task DeleteSchedule(int scheduleId);
@@ -211,6 +212,29 @@ namespace backend.Repositories
             {
                 throw e;
             }
+        }
+
+        public async Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId)
+        {
+            if (_context.Schedules != null)
+            {
+                try
+                {
+                    var foundStudent = _context.Students.Find(studentId);
+                    if (foundStudent != null)
+                    {
+                        var schedules = await _context.Schedules.Where(schedules => schedules.ClassroomId == foundStudent.ClassroomId)
+                                                                .Select(schedule => schedule.ScheduleEntitytoStudentDTO())
+                                                                .ToListAsync();
+                        return new OkObjectResult(schedules);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            return new NoContentResult();
         }
     }
 }

@@ -50,16 +50,24 @@ namespace backend.Controllers
         {
             return await _service.GetStudentById(studentId);
         }
+
+        [Authorize(Role.Teacher)]
+        [HttpGet("student-list/classroom-{classroomId}")]
+        public async Task<ActionResult<List<StudentListDTO>>> GetStudentByClassroomId(int classroomId)
+        {
+            return await _service.GetStudentByClassroomId(classroomId);
+        }
+
         [Authorize(Role.Admin)]
         [HttpPost("Add")]
-        public async Task AddStudent([FromBody]CreateStudentModel studentModel)
+        public async Task AddStudent([FromBody] CreateStudentModel studentModel)
         {
             await _service.AddStudent(studentModel);
         }
 
         [Authorize(Role.Admin)]
         [HttpPut("Update/{studentId}")]
-        public async Task UpdateStudent([FromBody]UpdateStudentModel studentModel, int studentId)
+        public async Task UpdateStudent([FromBody] UpdateStudentModel studentModel, int studentId)
         {
             await _service.UpdateStudent(studentModel, studentId);
         }

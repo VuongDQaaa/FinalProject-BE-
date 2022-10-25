@@ -28,6 +28,11 @@ namespace backend.Services
             return await _repository.GetSchedulesByClassroomId(classroomId);
         }
 
+        public async Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId)
+        {
+            return await _repository.GetSchedulesByStudentId(studentId);
+        }
+
         public async Task<ActionResult<List<TeacherScheduleDTO>>> GetSchedulesByTeacherId(int teacherId)
         {
             return await _repository.GetSchedulesByTeacherId(teacherId);

@@ -3,6 +3,10 @@ using backend.Entities;
 using backend.Data;
 using backend.Helpers;
 using backend.Enums;
+using backend.DTO;
+using backend.Utilities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories
 {
@@ -12,6 +16,7 @@ namespace backend.Repositories
         public Task UpdateTask(CreateTaskModel taskModel, int taskId);
         public Task DeleteTask(int taskId);
         public Task<List<AssignedTask>> GetAllAssignedTask();
+        public Task<ActionResult<List<AssignedTaskDTO>>> GetAssignedTasksByTeacherId(int teacherId);
         public Task<AssignedTask> GetTaskById(int taskId);
     }
     public class AssignedTaskRepository : IAssignedTaskRepository
@@ -111,7 +116,7 @@ namespace backend.Repositories
             }
             else
             {
-                throw new AppException("This class is not exist");
+                throw new AppException("This Task is not exist");
             }
         }
 
@@ -143,6 +148,29 @@ namespace backend.Repositories
             {
                 throw e;
             }
+        }
+
+        public async Task<ActionResult<List<AssignedTaskDTO>>> GetAssignedTasksByTeacherId(int teacherId)
+        {
+            if(_context.Tasks != null)
+            {
+                try
+                {
+                    var foundTeacher = _context.Users.FirstOrDefault(a => a.UserId == teacherId && a.Role == Role.Teacher);
+                    if(foundTeacher != null)
+                    {
+                        var assignedTasks = await _context.Tasks.Where(x => x.UserId == teacherId)
+                                                                .Select(task => task.AssignedTaskEntityToDTO())
+                                                                .ToListAsync();
+                        return new OkObjectResult(assignedTasks);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            return new NoContentResult();
         }
     }
 }

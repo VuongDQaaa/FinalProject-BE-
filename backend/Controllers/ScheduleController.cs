@@ -32,11 +32,18 @@ namespace backend.Controllers
             await _service.UpdateSchedule(scheduleModel, scheduleId);
         }
 
-        [AuthorizeAttributeStudent(Role.Student)]
+        [Authorize(Role.Admin)]
         [HttpGet("Get-Schedule/Classroom-id-{classroomId}")]
         public async Task<ActionResult<List<ClassroomScheduleDTO>>> GetScheduleByClassrroomId(int classroomId)
         {
             return await _service.GetSchedulesByClassroomId(classroomId);
+        }
+
+        [AuthorizeAttributeStudent(Role.Student)]
+        [HttpGet("Get-schedule/student-id-{studentId}")]
+        public async Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId)
+        {
+            return await _service.GetSchedulesByStudentId(studentId);
         }
 
         [Authorize(Role.Teacher)]
