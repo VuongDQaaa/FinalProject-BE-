@@ -125,6 +125,7 @@ namespace backend.Utilities
             AssignedTaskDTO result = new AssignedTaskDTO
             {
                 TaskId = entity.TaskId,
+                SubjectName = entity.SubjectName,
                 AutoFill = entity.AutoFill
             };
             return result;
