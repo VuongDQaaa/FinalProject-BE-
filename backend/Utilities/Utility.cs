@@ -98,6 +98,7 @@ namespace backend.Utilities
         {
             SearchTeacherDTO result = new SearchTeacherDTO
             {
+                UserId = entity.UserId,
                 Suggestion = entity.UserCode + " - " + entity.FullName + " - " + entity.UserName
             };
             return result;
