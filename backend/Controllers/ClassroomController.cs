@@ -18,14 +18,14 @@ namespace backend.Controllers
             _service = service;
         }
 
-        //[Authorize(Role.Admin)]
+        [Authorize(Role.Admin)]
         [HttpPost("New-classroom")]
         public async Task AddClassroom(UpdateClassroomModel classroomModel)
         {
             await _service.AddClassroom(classroomModel);
         }
 
-        //[Authorize(Role.Admin)]
+        [Authorize(Role.Admin)]
         [HttpPut("Update-classroom/{classroomId}")]
         public async Task UpdateClassroom(UpdateClassroomModel classroomModel, int classroomId)
         {
@@ -39,7 +39,7 @@ namespace backend.Controllers
             await _service.DeleteClassroom(classroomId);
         }
 
-        //[Authorize(Role.Admin)]
+        [Authorize(Role.Admin)]
         [HttpGet("All-classroom")]
         public async Task<List<Classroom>> GetAllClassroom()
         {
