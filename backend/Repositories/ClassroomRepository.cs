@@ -22,20 +22,35 @@ namespace backend.Repositories
             _context = context;
         }
 
+        public string GenarateClassroomName(string grade, string name)
+        {
+            return grade + " " + name;
+        }
+
+        public bool CheckValidClassroomName(string classroomName)
+        {
+            var foundClassroom = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == classroomName);
+            if(foundClassroom != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public async Task AddClassroom(UpdateClassroomModel classroomModel)
         {
             try
             {
-                var foundClassroom = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == classroomModel.ClassroomName);
-                if(foundClassroom != null)
-                {
-                    throw new AppException("This classroom have been added. Please enter a different classroom");
-                }
+                var newClassroomName = GenarateClassroomName(classroomModel.Grade, classroomModel.ClassroomName);
+                if(!CheckValidClassroomName(newClassroomName)) throw new AppException("This classroom have been added. Please enter a different classroom");
                 else
                 {
                     var newClassroom = new Classroom
                     {
-                        ClassroomName = classroomModel.ClassroomName,
+                        ClassroomName = newClassroomName,
                         Grade = classroomModel.Grade,
                         StartYear = classroomModel.StartYear,
                         EndYear = classroomModel.StartYear + 3,
@@ -54,22 +69,18 @@ namespace backend.Repositories
         {
             try
             {
+                var newClassroomName = GenarateClassroomName(classroomModel.Grade, classroomModel.ClassroomName);
+                if(!CheckValidClassroomName(newClassroomName)) throw new AppException("This classroom have been added. Please enter a different classroom");
                 var foundClassroom = await _context.Classrooms.FindAsync(classroomId);
                 if (foundClassroom != null)
                 {
-                    var usedClassroomName = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == classroomModel.ClassroomName);
-                    if (usedClassroomName == null)
-                    {
-                        foundClassroom.ClassroomName = classroomModel.ClassroomName;
-                        foundClassroom.StartYear = classroomModel.StartYear;
-                        foundClassroom.EndYear = classroomModel.StartYear + 3;
-                        _context.Classrooms.Update(foundClassroom);
-                        await _context.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        throw new AppException("This name have been used");
-                    }
+                    foundClassroom.ClassroomName = newClassroomName;
+                    foundClassroom.Grade = classroomModel.Grade;
+                    foundClassroom.StartYear = classroomModel.StartYear;
+                    foundClassroom.EndYear = classroomModel.StartYear + 3;
+
+                    _context.Classrooms.Update(foundClassroom);
+                    await _context.SaveChangesAsync();
                 }
             }
             catch (Exception e)
