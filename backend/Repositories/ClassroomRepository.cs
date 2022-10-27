@@ -27,9 +27,9 @@ namespace backend.Repositories
             return grade + " " + name;
         }
 
-        public bool CheckValidClassroomName(string classroomName)
+        public bool CheckValidClassroom(string classroomName, int startYear)
         {
-            var foundClassroom = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == classroomName);
+            var foundClassroom = _context.Classrooms.FirstOrDefault(a => a.ClassroomName == classroomName && a.StartYear == startYear);
             if(foundClassroom != null)
             {
                 return false;
@@ -45,7 +45,7 @@ namespace backend.Repositories
             try
             {
                 var newClassroomName = GenarateClassroomName(classroomModel.Grade, classroomModel.ClassroomName);
-                if(!CheckValidClassroomName(newClassroomName)) throw new AppException("This classroom have been added. Please enter a different classroom");
+                if(!CheckValidClassroom(newClassroomName, classroomModel.StartYear)) throw new AppException("This classroom have been added. Please enter a different classroom");
                 else
                 {
                     var newClassroom = new Classroom
@@ -70,7 +70,7 @@ namespace backend.Repositories
             try
             {
                 var newClassroomName = GenarateClassroomName(classroomModel.Grade, classroomModel.ClassroomName);
-                if(!CheckValidClassroomName(newClassroomName)) throw new AppException("This classroom have been added. Please enter a different classroom");
+                if(!CheckValidClassroom(newClassroomName, classroomModel.StartYear)) throw new AppException("This classroom have been added. Please enter a different classroom");
                 var foundClassroom = await _context.Classrooms.FindAsync(classroomId);
                 if (foundClassroom != null)
                 {
