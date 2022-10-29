@@ -4,6 +4,7 @@ namespace backend.Models.Students
 {
     public class AuthenticateResponse
     {
+        public int StudentId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
@@ -16,6 +17,7 @@ namespace backend.Models.Students
         public string Token { get; set; }
         public AuthenticateResponse(Student user, string token)
         {
+            StudentId = user.StudentId;
             FirstName = user.FirstName;
             LastName = user.LastName;
             Gender = user.Gender.ToString();
