@@ -76,10 +76,10 @@ namespace backend.Utilities
         {
             TeacherScheduleDTO result = new TeacherScheduleDTO
             {
+                ClassroomId = entity.ClassroomId,
                 Session = entity.Session.ToString(),
                 Period = entity.Period,
                 Day = entity.Day.ToString(),
-                ClassroomId = entity.ClassroomId,
                 AutoFill = entity.AutoFillTeacher
             };
             return result;

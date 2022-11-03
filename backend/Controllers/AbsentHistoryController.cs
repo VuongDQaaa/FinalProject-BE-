@@ -18,7 +18,7 @@ namespace backend.Controllers
             _service = service;
         }
 
-        [Authorize(Role.Admin)]
+        [Authorize(Role.Teacher)]
         [HttpPost("Add-history")]
         public async Task AddAbsentHistory(int scheduleId, int teacherId, int studentId, UpdateReasonModel reason)
         {
