@@ -76,6 +76,7 @@ namespace backend.Utilities
         {
             TeacherScheduleDTO result = new TeacherScheduleDTO
             {
+                ScheduleId = entity.ScheduleId,
                 ClassroomId = entity.ClassroomId,
                 Session = entity.Session.ToString(),
                 Period = entity.Period,
