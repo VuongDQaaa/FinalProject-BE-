@@ -106,6 +106,7 @@ namespace backend.Utilities
                 ClassroomName = entity.ClassroomName,
                 StudentFullName = entity.StudentFullName,
                 StudentCode = entity.StudentCode,
+                SubjectName = entity.SubjectName,
                 Reason = entity.Reason,
             };
             return result;
