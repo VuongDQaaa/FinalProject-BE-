@@ -24,7 +24,7 @@ namespace backend.Controllers
             await _service.AddSubject(subjectModel);
         }
 
-        [Authorize(Role.Admin)]
+        [Authorize(Role.Admin, Role.Teacher)]
         [HttpGet("All-subjects")]
         public async Task<List<Subject>> GetAllSubjects()
         {

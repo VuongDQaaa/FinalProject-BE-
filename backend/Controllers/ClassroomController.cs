@@ -39,7 +39,7 @@ namespace backend.Controllers
             await _service.DeleteClassroom(classroomId);
         }
 
-        [Authorize(Role.Admin)]
+        [Authorize(Role.Admin, Role.Teacher)]
         [HttpGet("All-classroom")]
         public async Task<List<Classroom>> GetAllClassroom()
         {
