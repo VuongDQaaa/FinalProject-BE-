@@ -2,6 +2,7 @@ namespace backend.DTO
 {
     public class AbsentHistoryTeacherDTO
     {
+        public int HistoryId { get; set; }
         public DateTime CreatedDate { get; set; }
         public string? ClassroomName { get; set; }
         public string? SubjectName { get; set; }

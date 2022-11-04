@@ -102,6 +102,7 @@ namespace backend.Utilities
         {
             AbsentHistoryTeacherDTO result = new AbsentHistoryTeacherDTO
             {
+                HistoryId = entity.HistoryId,
                 CreatedDate = entity.CreatedDate,
                 ClassroomName = entity.ClassroomName,
                 StudentFullName = entity.StudentFullName,
