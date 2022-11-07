@@ -52,7 +52,7 @@ namespace backend.Repositories
 
         private Session SessionConverter(string inputValue)
         {
-            if (inputValue == "Morning")
+            if (inputValue == "morning")
             {
                 return Session.Morning;
             }
@@ -64,23 +64,23 @@ namespace backend.Repositories
 
         private Day DayConverter(string inputValue)
         {
-            if (inputValue == "Monday")
+            if (inputValue == "monday")
             {
                 return Day.Monday;
             }
-            else if (inputValue == "Tuesday")
+            else if (inputValue == "tuesday")
             {
                 return Day.Tuesday;
             }
-            else if (inputValue == "Wednesday")
+            else if (inputValue == "wednesday")
             {
                 return Day.Wednesday;
             }
-            else if (inputValue == "Thursday")
+            else if (inputValue == "thursday")
             {
                 return Day.Thursday;
             }
-            else if (inputValue == "Friday")
+            else if (inputValue == "friday")
             {
                 return Day.Friday;
             }
