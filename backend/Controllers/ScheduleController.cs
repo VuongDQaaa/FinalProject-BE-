@@ -26,13 +26,6 @@ namespace backend.Controllers
         }
 
         [Authorize(Role.Admin)]
-        [HttpPut("Update-schedule")]
-        public async Task UpdateSchedule(UpdateScheduleModel scheduleModel, int scheduleId)
-        {
-            await _service.UpdateSchedule(scheduleModel, scheduleId);
-        }
-
-        [Authorize(Role.Admin)]
         [HttpGet("Get-Schedule/Classroom-id-{classroomId}")]
         public async Task<ActionResult<List<ClassroomScheduleDTO>>> GetScheduleByClassrroomId(int classroomId)
         {

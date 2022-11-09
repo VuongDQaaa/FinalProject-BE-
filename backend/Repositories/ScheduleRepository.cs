@@ -16,7 +16,6 @@ namespace backend.Repositories
         public Task<ActionResult<List<ClassroomScheduleDTO>>> GetSchedulesByClassroomId(int classroomId);
         public Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId);
         public Task<ActionResult<List<TeacherScheduleDTO>>> GetSchedulesByTeacherId(int teacherId);
-        public Task UpdateSchedule(UpdateScheduleModel scheduleModel, int scheduleId);
         public Task DeleteSchedule(int scheduleId);
     }
     public class ScheduleRepository : IScheduleRepository
@@ -188,30 +187,6 @@ namespace backend.Repositories
                 }
             }
             return new NoContentResult();
-        }
-
-        public async Task UpdateSchedule(UpdateScheduleModel scheduleModel, int scheduleId)
-        {
-            try
-            {
-                var foundSchedule = _context.Schedules.Find(scheduleId);
-                var foundUser = _context.Users.FirstOrDefault(a => a.UserName == scheduleModel.UserName);
-                var foundAssignedTask = _context.Tasks.Find(scheduleModel.TaskId);
-                if (foundSchedule != null
-                    && foundUser != null
-                    && foundAssignedTask != null)
-                {
-                    foundSchedule.UserId = foundUser.UserId;
-                    foundSchedule.TaskId = foundAssignedTask.TaskId;
-
-                    _context.Schedules.Update(foundSchedule);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
         }
 
         public async Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId)

@@ -37,10 +37,5 @@ namespace backend.Services
         {
             return await _repository.GetSchedulesByTeacherId(teacherId);
         }
-
-        public async Task UpdateSchedule(UpdateScheduleModel scheduleModel, int scheduleId)
-        {
-            await _repository.UpdateSchedule(scheduleModel, scheduleId);
-        }
     }
 }
