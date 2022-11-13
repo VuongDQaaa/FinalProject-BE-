@@ -23,19 +23,19 @@ namespace backend.Services
             await _repository.DeleteSchedule(scheduleId);
         }
 
-        public async Task<ActionResult<List<ClassroomScheduleDTO>>> GetSchedulesByClassroomId(int classroomId)
+        public async Task<ActionResult<List<ClassroomScheduleDTO>>> GetSchedulesByClassroomId(int classroomId , int year, string week)
         {
-            return await _repository.GetSchedulesByClassroomId(classroomId);
+            return await _repository.GetSchedulesByClassroomId(classroomId, year, week);
         }
 
-        public async Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId)
+        public async Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId, int year, string week)
         {
-            return await _repository.GetSchedulesByStudentId(studentId);
+            return await _repository.GetSchedulesByStudentId(studentId, year, week);
         }
 
-        public async Task<ActionResult<List<TeacherScheduleDTO>>> GetSchedulesByTeacherId(int teacherId)
+        public async Task<ActionResult<List<TeacherScheduleDTO>>> GetSchedulesByTeacherId(int teacherId, int year, string week)
         {
-            return await _repository.GetSchedulesByTeacherId(teacherId);
+            return await _repository.GetSchedulesByTeacherId(teacherId, year, week);
         }
     }
 }

@@ -20,7 +20,8 @@ namespace backend.Data
                         StudentCode = "ST1",
                         TeacherFullName = "Do Duy Nam",
                         ClassroomName = "10 Sinh",
-                        CreatedDate = DateTime.Now,
+                        CreatedDate = new DateTime(2022,11,07),
+                        AbsentDate = new DateTime(2022,11,07),
                         Reason = "No"
                     },
                     new AbsentHistory() {
@@ -32,7 +33,8 @@ namespace backend.Data
                         StudentCode = "ST1",
                         TeacherFullName = "Do Thu Huong",
                         ClassroomName = "10 Sinh",
-                        CreatedDate = DateTime.Now,
+                        CreatedDate = new DateTime(2022,11,07),
+                        AbsentDate = new DateTime(2022,11,07),
                         Reason = "No"
                     }
                 };
@@ -52,6 +54,7 @@ namespace backend.Data
                         Day = Day.Monday,
                         UserId = 2,
                         TaskId = 1,
+                        ScheduleDate = new DateTime(2022,11,07),
                         AutoFillClassroom = "Sinh - Teacher",
                         AutoFillTeacher = "Sinh - 10 Sinh",
                         ClassroomId = 1
@@ -63,6 +66,19 @@ namespace backend.Data
                         Day = Day.Monday,
                         UserId = 2,
                         TaskId = 2,
+                        ScheduleDate = new DateTime(2022,11,07),
+                        AutoFillClassroom = "Toan - Teacher",
+                        AutoFillTeacher = "Toan - 10 Sinh",
+                        ClassroomId = 1
+                    },
+                        new Schedule() {
+                        ScheduleId = 3,
+                        Session = Session.Morning,
+                        Period = 2,
+                        Day = Day.Monday,
+                        UserId = 2,
+                        TaskId = 2,
+                        ScheduleDate = new DateTime(2022,10,31),
                         AutoFillClassroom = "Toan - Teacher",
                         AutoFillTeacher = "Toan - 10 Sinh",
                         ClassroomId = 1

@@ -27,23 +27,23 @@ namespace backend.Controllers
 
         [Authorize(Role.Admin)]
         [HttpGet("Get-Schedule/Classroom-id-{classroomId}")]
-        public async Task<ActionResult<List<ClassroomScheduleDTO>>> GetScheduleByClassrroomId(int classroomId)
+        public async Task<ActionResult<List<ClassroomScheduleDTO>>> GetScheduleByClassrroomId(int classroomId, int year, string week)
         {
-            return await _service.GetSchedulesByClassroomId(classroomId);
+            return await _service.GetSchedulesByClassroomId(classroomId, year, week);
         }
 
         [AuthorizeAttributeStudent(Role.Student)]
         [HttpGet("Get-schedule/student-id-{studentId}")]
-        public async Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId)
+        public async Task<ActionResult<List<StudentScheduleDTO>>> GetSchedulesByStudentId(int studentId, int year, string week)
         {
-            return await _service.GetSchedulesByStudentId(studentId);
+            return await _service.GetSchedulesByStudentId(studentId, year, week);
         }
 
         [Authorize(Role.Teacher)]
         [HttpGet("Get-Schedule/Teacher-id-{teacherId}")]
-        public async Task<ActionResult<List<TeacherScheduleDTO>>> GetScheduleByTeacherId(int teacherId)
+        public async Task<ActionResult<List<TeacherScheduleDTO>>> GetScheduleByTeacherId(int teacherId, int year, string week)
         {
-            return await _service.GetSchedulesByTeacherId(teacherId);
+            return await _service.GetSchedulesByTeacherId(teacherId, year, week);
         }
 
         [Authorize(Role.Admin)]

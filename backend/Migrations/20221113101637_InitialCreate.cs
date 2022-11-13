@@ -133,6 +133,7 @@ namespace backend.Migrations
                     TeacherFullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClassroomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AbsentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -163,6 +164,7 @@ namespace backend.Migrations
                     Day = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     TaskId = table.Column<int>(type: "int", nullable: false),
+                    ScheduleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AutoFillClassroom = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AutoFillTeacher = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClassroomId = table.Column<int>(type: "int", nullable: false)
@@ -213,9 +215,9 @@ namespace backend.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "FirstName", "Gender", "IsDiabled", "IsFirstLogin", "LastName", "PasswordHash", "Role", "UserCode", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, false, false, "Quy Vuong", "$2a$11$GoMA./AhJ1fAeDbBYPbzFe5wqAlnkQPyf5IaAXVSS.O/l5DPEHffS", 0, "AD1", "Admin" },
-                    { 2, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 0, false, false, "Duy Nam", "$2a$11$RwBocNtz8RxWNHvV7NDhwOfZL5ypB9WA/bL0/gjjC9oIMA1mNHWce", 1, "TC1", "Teacher" },
-                    { 3, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 1, false, false, "Thu Huong", "$2a$11$M.Qmza84B439d17iOKhmb.aHzA7m/h4wLiwkSXW9TLBR32dUJ9EOu", 1, "TC2", "Teacher1" }
+                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, false, false, "Quy Vuong", "$2a$11$kuOdE1.zSFZaCAIE.nfwauvnG.XfOZR6/Tt1EYEM1CDM2L1fc2cVS", 0, "AD1", "Admin" },
+                    { 2, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 0, false, false, "Duy Nam", "$2a$11$kiv.nRzrs2fPgcl0beTmI.mREhGSgFnXiz3j6OvTzhjBwaRXmRId6", 1, "TC1", "Teacher" },
+                    { 3, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Do", 1, false, false, "Thu Huong", "$2a$11$SfhVF3rUd9GaHSPldtyU6uKKQIHUsZHhJKmMjwstK7b48w7nQRWrK", 1, "TC2", "Teacher1" }
                 });
 
             migrationBuilder.InsertData(
@@ -233,27 +235,28 @@ namespace backend.Migrations
                 columns: new[] { "StudentId", "ClassroomId", "ClassroomName", "DateOfBirth", "FirstName", "Gender", "IsDiabled", "IsFirstLogin", "LastName", "PasswordHash", "Role", "StudentCode", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Le", 1, false, false, "Thi Van", "$2a$11$HITd3o9vhawJQRq1cE3DHeruV.4pSDiEoc2UyuK5GSHcjoLsJj9ZO", 2, "ST1", "Student1" },
-                    { 2, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van A", "$2a$11$lky7b1K6AD3CaWroEChduu7m0q8QzsXcbyFV0U/UDrNB599JilUd2", 2, "ST2", "Student2" },
-                    { 3, 2, "10 Toan", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van B", "$2a$11$hqN4JUQ63ApDR8H2eas6deeoDx/BdjDvsQPg.rIKlzJjGI4Qp6Kwm", 2, "ST4", "Student3" }
+                    { 1, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Le", 1, false, false, "Thi Van", "$2a$11$4qbEi2e0P6Q70VUEFAkfQO8ZzBqRaQ2Ust6ciEc7ZXmpaVTJ5az6a", 2, "ST1", "Student1" },
+                    { 2, 1, "10 Sinh", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van A", "$2a$11$/mkIIV67oocfPWjcsChtN.TGRig5fT1CoGfYTp9BapH.Mi6Lt.sVq", 2, "ST2", "Student2" },
+                    { 3, 2, "10 Toan", new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen", 0, false, false, "Van B", "$2a$11$2.Dxe66GKqVmE1DmDhxLWuHVGYyF67tv0.LCnlFjSlNUwf9QNTAMu", 2, "ST4", "Student3" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AbsentHistory",
-                columns: new[] { "HistoryId", "ClassroomName", "CreatedDate", "Reason", "StudentCode", "StudentFullName", "StudentId", "SubjectName", "TeacherFullName", "TeacherId" },
+                columns: new[] { "HistoryId", "AbsentDate", "ClassroomName", "CreatedDate", "Reason", "StudentCode", "StudentFullName", "StudentId", "SubjectName", "TeacherFullName", "TeacherId" },
                 values: new object[,]
                 {
-                    { 1, "10 Sinh", new DateTime(2022, 10, 24, 20, 21, 55, 597, DateTimeKind.Local).AddTicks(3770), "No", "ST1", "Dao Quy Vuong", 1, "Sinh", "Do Duy Nam", 2 },
-                    { 2, "10 Sinh", new DateTime(2022, 10, 24, 20, 21, 55, 597, DateTimeKind.Local).AddTicks(3791), "No", "ST1", "Dao Quy Vuong", 1, "Toan", "Do Thu Huong", 3 }
+                    { 1, new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "10 Sinh", new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "No", "ST1", "Dao Quy Vuong", 1, "Sinh", "Do Duy Nam", 2 },
+                    { 2, new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "10 Sinh", new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "No", "ST1", "Dao Quy Vuong", 1, "Toan", "Do Thu Huong", 3 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Schedule",
-                columns: new[] { "ScheduleId", "AutoFillClassroom", "AutoFillTeacher", "ClassroomId", "Day", "Period", "Session", "TaskId", "UserId" },
+                columns: new[] { "ScheduleId", "AutoFillClassroom", "AutoFillTeacher", "ClassroomId", "Day", "Period", "ScheduleDate", "Session", "TaskId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Sinh - Teacher", "Sinh - 10 Sinh", 1, 0, 1, 0, 1, 2 },
-                    { 2, "Toan - Teacher", "Toan - 10 Sinh", 1, 0, 2, 0, 2, 2 }
+                    { 1, "Sinh - Teacher", "Sinh - 10 Sinh", 1, 0, 1, new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 1, 2 },
+                    { 2, "Toan - Teacher", "Toan - 10 Sinh", 1, 0, 2, new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 2, 2 },
+                    { 3, "Toan - Teacher", "Toan - 10 Sinh", 1, 0, 2, new DateTime(2022, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(

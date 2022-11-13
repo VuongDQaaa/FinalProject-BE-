@@ -19,7 +19,7 @@ namespace backend.Entities
         [Required]
         public string StudentFullName { get; set; }
         [Required]
-        public string StudentCode {get;set;}
+        public string StudentCode { get; set; }
         [Required]
         public string TeacherFullName { get; set; }
         [Required]
@@ -27,6 +27,7 @@ namespace backend.Entities
         [Required]
         public DateTime CreatedDate { get; set; }
         [Required]
+        public DateTime AbsentDate { get; set; }
         public string Reason { get; set; }
         [Required]
         public virtual User Teacher { get; set; }

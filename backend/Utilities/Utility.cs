@@ -64,6 +64,7 @@ namespace backend.Utilities
         {
             StudentScheduleDTO result = new StudentScheduleDTO
             {
+                ScheduleDate = entity.ScheduleDate,
                 Session = entity.Session.ToString(),
                 Period = entity.Period,
                 Day = entity.Day.ToString(),
@@ -76,6 +77,7 @@ namespace backend.Utilities
         {
             TeacherScheduleDTO result = new TeacherScheduleDTO
             {
+                ScheduleDate = entity.ScheduleDate,
                 ScheduleId = entity.ScheduleId,
                 ClassroomId = entity.ClassroomId,
                 Session = entity.Session.ToString(),
@@ -91,6 +93,7 @@ namespace backend.Utilities
             AbsentHistoryStudentDTO result = new AbsentHistoryStudentDTO
             {
                 CreatedDate = entity.CreatedDate,
+                AbsentDate = entity.AbsentDate,
                 SubjectName = entity.SubjectName,
                 TeacherFullName = entity.TeacherFullName,
                 Reason = entity.Reason
@@ -104,6 +107,7 @@ namespace backend.Utilities
             {
                 HistoryId = entity.HistoryId,
                 CreatedDate = entity.CreatedDate,
+                AbsentDate = entity.AbsentDate,
                 ClassroomName = entity.ClassroomName,
                 StudentFullName = entity.StudentFullName,
                 StudentCode = entity.StudentCode,

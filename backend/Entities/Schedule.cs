@@ -21,6 +21,7 @@ namespace backend.Entities
         [Required]
         public int TaskId { get; set; }
         [Required]
+        public DateTime ScheduleDate { get; set; }
         public string AutoFillClassroom { get; set; }
         [Required]
         public string AutoFillTeacher { get; set; }

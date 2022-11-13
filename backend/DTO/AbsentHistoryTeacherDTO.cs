@@ -4,6 +4,7 @@ namespace backend.DTO
     {
         public int HistoryId { get; set; }
         public DateTime CreatedDate { get; set; }
+        public DateTime AbsentDate { get; set; }
         public string? ClassroomName { get; set; }
         public string? SubjectName { get; set; }
         public string? StudentFullName { get; set; }
