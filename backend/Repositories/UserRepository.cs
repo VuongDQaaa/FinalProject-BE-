@@ -7,6 +7,7 @@ using backend.Models.Users;
 using backend.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace backend.Repositories
 {
@@ -18,7 +19,7 @@ namespace backend.Repositories
         public Task ChangePasswordFirstLogin(FirstLoginModel login);
         public Task ChangePassWord(ChangePasswordModel changePassword);
         public Task<List<UserDTO>> GetAllActiveUser();
-        public Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher();
+        public Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher(string scheduleDate, string session, string day, int period);
         public Task<User> GetUserById(int id);
     }
     public class UserRepository : IUserRepository
@@ -28,6 +29,46 @@ namespace backend.Repositories
         public UserRepository(MyDbContext context, IAssignedTaskRepository repository)
         {
             _context = context;
+        }
+
+        private Session SessionConverter(string inputValue)
+        {
+            if (inputValue == "morning")
+            {
+                return Session.Morning;
+            }
+            else
+            {
+                return Session.Afternoon;
+            }
+        }
+
+        private Day DayConverter(string inputValue)
+        {
+            if (inputValue == "monday")
+            {
+                return Day.Monday;
+            }
+            else if (inputValue == "tuesday")
+            {
+                return Day.Tuesday;
+            }
+            else if (inputValue == "wednesday")
+            {
+                return Day.Wednesday;
+            }
+            else if (inputValue == "thursday")
+            {
+                return Day.Thursday;
+            }
+            else if (inputValue == "friday")
+            {
+                return Day.Friday;
+            }
+            else
+            {
+                return Day.Saturday;
+            }
         }
 
         private bool checkValidPassowrd(string password)
@@ -323,13 +364,20 @@ namespace backend.Repositories
             }
         }
 
-        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher()
+        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher(string scheduleDate, string session, string day, int period)
         {
             if(_context.Users != null)
             {
                 try
                 {
-                    var teachers = await _context.Users.Where(user => user.IsDiabled == false && user.Role == Role.Teacher)
+                    string[] date = scheduleDate.Split('-');
+                    string newDate = date[0] + "/" + date[1] + "/" + date[2];
+                    var teachers = await _context.Users.Where(user => user.IsDiabled == false 
+                                                                    && user.Role == Role.Teacher
+                                                                    && user.Schedules.FirstOrDefault(a => a.ScheduleDate == DateTime.ParseExact(newDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                                                                                                            && a.Session == SessionConverter(session)
+                                                                                                            && a.Day == DayConverter(day)
+                                                                                                            && a.Period == period) == null)
                                                         .Select(teacher => teacher.TeacherEntityToDTO())
                                                         .ToListAsync();
                     return new OkObjectResult(teachers);

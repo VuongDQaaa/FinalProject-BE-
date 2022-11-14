@@ -94,6 +94,8 @@ namespace backend.Utilities
             {
                 CreatedDate = entity.CreatedDate,
                 AbsentDate = entity.AbsentDate,
+                Session = entity.Session.ToString(),
+                Slot = entity.Slot,
                 SubjectName = entity.SubjectName,
                 TeacherFullName = entity.TeacherFullName,
                 Reason = entity.Reason
@@ -108,6 +110,8 @@ namespace backend.Utilities
                 HistoryId = entity.HistoryId,
                 CreatedDate = entity.CreatedDate,
                 AbsentDate = entity.AbsentDate,
+                Session = entity.Session.ToString(),
+                Slot = entity.Slot,
                 ClassroomName = entity.ClassroomName,
                 StudentFullName = entity.StudentFullName,
                 StudentCode = entity.StudentCode,

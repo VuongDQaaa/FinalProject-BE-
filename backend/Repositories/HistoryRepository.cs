@@ -11,7 +11,7 @@ namespace backend.Repositories
 {
     public interface IHistoryRepository
     {
-        public Task AddAbsentHistory(int scheduleId, int teacherId, int studentId, UpdateReasonModel reason );
+        public Task AddAbsentHistory(int scheduleId, int teacherId, int studentId, UpdateReasonModel reason);
         public Task<ActionResult<List<AbsentHistoryStudentDTO>>> GetAbsentHistoryStudent(int studentId);
         public Task<ActionResult<List<AbsentHistoryTeacherDTO>>> GetAbsentHistoryTeacher(int teacherId);
         public Task UpdateHistory(UpdateReasonModel model, int historyId);
@@ -45,25 +45,35 @@ namespace backend.Repositories
                 var foundSchedule = _context.Schedules.Find(scheduleId);
                 var foundTeacher = _context.Users.Find(teacherId);
                 var foundStudent = _context.Students.Find(studentId);
-                if(reason.Reason == "") throw new AppException("Require absent reason");
+                if (reason.Reason == "") throw new AppException("Require absent reason");
                 if (foundSchedule != null
                     && foundTeacher != null
                     && foundStudent != null)
                 {
-                    var newAbsentHistory = new AbsentHistory
+                    var foundAbsentHistory = _context.AbsentHistories.FirstOrDefault(a => a.AbsentDate == foundSchedule.ScheduleDate
+                                                                                        && a.StudentId == foundStudent.StudentId
+                                                                                        && a.Slot == foundSchedule.Period
+                                                                                        && a.Session == foundSchedule.Session);
+                    if (foundAbsentHistory == null)
                     {
-                        StudentId = foundStudent.StudentId,
-                        TeacherId = foundTeacher.UserId,
-                        SubjectName = FindTask(foundSchedule.TaskId).SubjectName,
-                        StudentFullName = foundStudent.FullName,
-                        StudentCode = foundStudent.StudentCode,
-                        TeacherFullName = foundTeacher.FullName,
-                        ClassroomName = foundStudent.ClassroomName,
-                        CreatedDate = DateTime.Now,
-                        Reason = reason.Reason
+                        var newAbsentHistory = new AbsentHistory
+                        {
+                            StudentId = foundStudent.StudentId,
+                            TeacherId = foundTeacher.UserId,
+                            SubjectName = FindTask(foundSchedule.TaskId).SubjectName,
+                            StudentFullName = foundStudent.FullName,
+                            StudentCode = foundStudent.StudentCode,
+                            TeacherFullName = foundTeacher.FullName,
+                            ClassroomName = foundStudent.ClassroomName,
+                            CreatedDate = DateTime.Now,
+                            AbsentDate = foundSchedule.ScheduleDate,
+                            Reason = reason.Reason,
+                            Slot = foundSchedule.Period,
+                            Session = foundSchedule.Session
+                        };
+                        await _context.AbsentHistories.AddAsync(newAbsentHistory);
+                        await _context.SaveChangesAsync();
                     };
-                    await _context.AbsentHistories.AddAsync(newAbsentHistory);
-                    await _context.SaveChangesAsync();
                 };
             }
             catch (Exception e)
@@ -77,7 +87,7 @@ namespace backend.Repositories
             try
             {
                 var foundHistory = _context.AbsentHistories.Find(historyId);
-                if(foundHistory != null)
+                if (foundHistory != null)
                 {
                     _context.AbsentHistories.Remove(foundHistory);
                     await _context.SaveChangesAsync();
@@ -91,12 +101,12 @@ namespace backend.Repositories
 
         public async Task<ActionResult<List<AbsentHistoryStudentDTO>>> GetAbsentHistoryStudent(int studentId)
         {
-            if(_context.AbsentHistories != null)
+            if (_context.AbsentHistories != null)
             {
                 try
                 {
                     var foundStudent = _context.Students.Find(studentId);
-                    if(foundStudent != null)
+                    if (foundStudent != null)
                     {
                         var absentHistories = await _context.AbsentHistories.Where(histories => histories.StudentId == foundStudent.StudentId)
                                                                         .Select(history => history.HistoryStudentToDTO())
@@ -114,12 +124,12 @@ namespace backend.Repositories
 
         public async Task<ActionResult<List<AbsentHistoryTeacherDTO>>> GetAbsentHistoryTeacher(int teacherId)
         {
-            if(_context.AbsentHistories != null)
+            if (_context.AbsentHistories != null)
             {
                 try
                 {
                     var foundTeacher = _context.Users.Find(teacherId);
-                    if(foundTeacher != null)
+                    if (foundTeacher != null)
                     {
                         var AbsentHistories = await _context.AbsentHistories.Where(histories => histories.TeacherId == teacherId)
                                                                             .Select(history => history.HistoryTeacherToDTO())
@@ -140,8 +150,8 @@ namespace backend.Repositories
             try
             {
                 var foundAbsentHistory = _context.AbsentHistories.Find(historyId);
-                if(model.Reason == "") throw new AppException("Require absent reason");
-                if(foundAbsentHistory != null)
+                if (model.Reason == "") throw new AppException("Require absent reason");
+                if (foundAbsentHistory != null)
                 {
                     foundAbsentHistory.Reason = model.Reason;
                     _context.AbsentHistories.Update(foundAbsentHistory);

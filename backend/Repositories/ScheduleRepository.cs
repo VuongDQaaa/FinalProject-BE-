@@ -104,9 +104,12 @@ namespace backend.Repositories
                     var foundSubject = _context.Subjects.Find(foundAssignedTask.SubjectId);
                     if (foundSubject != null)
                     {
+                        string[] date = scheduleModel.ScheduleDate.Split('-');
+                        string newDate = date[0] + "/" + date[1] + "/" + date[2];
                         var newSchedule = new Schedule
                         {
                             Session = SessionConverter(scheduleModel.Session),
+                            ScheduleDate = DateTime.ParseExact(newDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                             Period = scheduleModel.Period,
                             Day = DayConverter(scheduleModel.Day),
                             UserId = foundUser.UserId,

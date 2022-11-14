@@ -39,7 +39,7 @@ namespace backend.Services
             var user = _context.Users.Find(id);
             return user;
         }
-        
+
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
             var user = _context.Users.SingleOrDefault(x => x.UserName == model.UserName);
@@ -84,9 +84,9 @@ namespace backend.Services
             await _repository.ChangePassWord(changePassword);
         }
 
-        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher()
+        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher(string scheduleDate, string session, string day, int period)
         {
-            return await _repository.SearchTeacher();
+            return await _repository.SearchTeacher(scheduleDate, session, day, period);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using backend.Enums;
 
 
 namespace backend.Entities
@@ -28,8 +29,10 @@ namespace backend.Entities
         public DateTime CreatedDate { get; set; }
         [Required]
         public DateTime AbsentDate { get; set; }
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         [Required]
+        public int Slot { get; set; }
+        public Session Session { get; set; }
         public virtual User Teacher { get; set; }
         public virtual Student Student { get; set; }
     }

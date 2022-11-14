@@ -16,6 +16,6 @@ namespace backend.Interfaces
         public Task DisableUser(int id);
         public Task ChangePasswordFirstLogin(FirstLoginModel login);
         public Task ChangePassWord(ChangePasswordModel changePassword);
-        public Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher();
+        public Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher(string scheduleDate, string session, string day, int period);
     }
 }

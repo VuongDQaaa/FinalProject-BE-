@@ -39,9 +39,9 @@ namespace backend.Controllers
 
         [Authorize(Role.Admin)]
         [HttpGet("search-teacher")]
-        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher()
+        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher(string scheduleDate, string session, string day, int period)
         {
-            return await _service.SearchTeacher();
+            return await _service.SearchTeacher(scheduleDate, session, day, period);
         }
 
         [Authorize(Role.Admin)]
@@ -66,14 +66,14 @@ namespace backend.Controllers
 
         [Authorize(Role.Admin)]
         [HttpPost("Add")]
-        public async Task AddUser([FromBody]CreateUserModel user)
+        public async Task AddUser([FromBody] CreateUserModel user)
         {
             await _service.AddUser(user);
         }
 
         [Authorize(Role.Admin)]
         [HttpPut("Update/{userId}")]
-        public async Task UpdateUser([FromBody]UpdateUserModel user, int userId)
+        public async Task UpdateUser([FromBody] UpdateUserModel user, int userId)
         {
             await _service.UpdateUser(user, userId);
         }

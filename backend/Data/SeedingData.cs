@@ -22,7 +22,9 @@ namespace backend.Data
                         ClassroomName = "10 Sinh",
                         CreatedDate = new DateTime(2022,11,07),
                         AbsentDate = new DateTime(2022,11,07),
-                        Reason = "No"
+                        Reason = "No",
+                        Slot = 1,
+                        Session = Session.Morning
                     },
                     new AbsentHistory() {
                         HistoryId = 2,
@@ -35,7 +37,9 @@ namespace backend.Data
                         ClassroomName = "10 Sinh",
                         CreatedDate = new DateTime(2022,11,07),
                         AbsentDate = new DateTime(2022,11,07),
-                        Reason = "No"
+                        Reason = "No",
+                        Slot = 1,
+                        Session = Session.Morning
                     }
                 };
                 return result;

@@ -12,8 +12,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20221113101637_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221114102230_Sprint5")]
+    partial class Sprint5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,8 +43,13 @@ namespace backend.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Reason")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Session")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Slot")
+                        .HasColumnType("int");
 
                     b.Property<string>("StudentCode")
                         .IsRequired()
@@ -84,6 +89,8 @@ namespace backend.Migrations
                             ClassroomName = "10 Sinh",
                             CreatedDate = new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Reason = "No",
+                            Session = 0,
+                            Slot = 1,
                             StudentCode = "ST1",
                             StudentFullName = "Dao Quy Vuong",
                             StudentId = 1,
@@ -98,6 +105,8 @@ namespace backend.Migrations
                             ClassroomName = "10 Sinh",
                             CreatedDate = new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Reason = "No",
+                            Session = 0,
+                            Slot = 1,
                             StudentCode = "ST1",
                             StudentFullName = "Dao Quy Vuong",
                             StudentId = 1,
@@ -373,7 +382,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Thi Van",
-                            PasswordHash = "$2a$11$4qbEi2e0P6Q70VUEFAkfQO8ZzBqRaQ2Ust6ciEc7ZXmpaVTJ5az6a",
+                            PasswordHash = "$2a$11$apHzG3ah3Lz/fG2Y4xoIJ.i9WXHUKOTzu/A.cqKsKr52sOCOyQIw6",
                             Role = 2,
                             StudentCode = "ST1",
                             UserName = "Student1"
@@ -389,7 +398,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Van A",
-                            PasswordHash = "$2a$11$/mkIIV67oocfPWjcsChtN.TGRig5fT1CoGfYTp9BapH.Mi6Lt.sVq",
+                            PasswordHash = "$2a$11$mhU55fS/9cEp8iyfZGBadem8187Nk8Xv8YFxNFlkVjdXxuo/lYdj.",
                             Role = 2,
                             StudentCode = "ST2",
                             UserName = "Student2"
@@ -405,7 +414,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Van B",
-                            PasswordHash = "$2a$11$2.Dxe66GKqVmE1DmDhxLWuHVGYyF67tv0.LCnlFjSlNUwf9QNTAMu",
+                            PasswordHash = "$2a$11$9..XGtgfjAvzDgRNoYYgsObFgEuFvJpECf0fdHZds86P3UHPhJVPC",
                             Role = 2,
                             StudentCode = "ST4",
                             UserName = "Student3"
@@ -498,7 +507,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Quy Vuong",
-                            PasswordHash = "$2a$11$kuOdE1.zSFZaCAIE.nfwauvnG.XfOZR6/Tt1EYEM1CDM2L1fc2cVS",
+                            PasswordHash = "$2a$11$ItK36I6Yj3vTSxaSTBQVFummPqejpN/J1j3aO7yrxUVP9C.wO659y",
                             Role = 0,
                             UserCode = "AD1",
                             UserName = "Admin"
@@ -512,7 +521,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Duy Nam",
-                            PasswordHash = "$2a$11$kiv.nRzrs2fPgcl0beTmI.mREhGSgFnXiz3j6OvTzhjBwaRXmRId6",
+                            PasswordHash = "$2a$11$kbETqLyhv4VdFPegPFl9ROYumSGaHwTjuI/1kUTqdtp/089QfQMRa",
                             Role = 1,
                             UserCode = "TC1",
                             UserName = "Teacher"
@@ -526,7 +535,7 @@ namespace backend.Migrations
                             IsDiabled = false,
                             IsFirstLogin = false,
                             LastName = "Thu Huong",
-                            PasswordHash = "$2a$11$SfhVF3rUd9GaHSPldtyU6uKKQIHUsZHhJKmMjwstK7b48w7nQRWrK",
+                            PasswordHash = "$2a$11$NHrj7RxCRHVFNjgf99JXoOihXIUriBmH2pg5tbVvd7TgvSOikiPmC",
                             Role = 1,
                             UserCode = "TC2",
                             UserName = "Teacher1"
