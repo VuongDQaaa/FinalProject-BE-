@@ -87,6 +87,18 @@ namespace backend.Data
                         AutoFillTeacher = "Toan - 10 Sinh",
                         ClassroomId = 1
                     },
+                        new Schedule() {
+                        ScheduleId = 4,
+                        Session = Session.Afternoon,
+                        Period = 1,
+                        Day = Day.Monday,
+                        UserId = 2,
+                        TaskId = 2,
+                        ScheduleDate = new DateTime(2022,11,07),
+                        AutoFillClassroom = "Toan - Teacher",
+                        AutoFillTeacher = "Toan - 10 Sinh",
+                        ClassroomId = 1
+                    }
                 };
                 return result;
             }
