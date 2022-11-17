@@ -2,7 +2,6 @@ using backend.Interfaces;
 using backend.DTO;
 using backend.Repositories;
 using backend.Models.AbsentHistory;
-using backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services

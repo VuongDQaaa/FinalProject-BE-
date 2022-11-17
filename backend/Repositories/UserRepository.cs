@@ -20,6 +20,7 @@ namespace backend.Repositories
         public Task ChangePassWord(ChangePasswordModel changePassword);
         public Task<List<UserDTO>> GetAllActiveUser();
         public Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher(string scheduleDate, string session, string day, int period);
+        public Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacherTask();
         public Task<User> GetUserById(int id);
     }
     public class UserRepository : IUserRepository
@@ -283,7 +284,7 @@ namespace backend.Repositories
             {
                 //Auto remove any Schedule relatec to thus disabled user
                 var foundSchedules = _context.Schedules.Where(x => x.UserId == id);
-                if(foundSchedules != null)
+                if (foundSchedules != null)
                 {
                     _context.Schedules.RemoveRange(foundSchedules);
                     await _context.SaveChangesAsync();
@@ -323,7 +324,7 @@ namespace backend.Repositories
                 if (foundUser.IsFirstLogin == false) throw new AppException("This is not your first login");
                 if (foundUser != null
 
-                    && login.NewPassword.Length > 8
+                    && login.NewPassword.Length >= 8
                     && login.NewPassword.Length < 255)
                 {
                     foundUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(login.NewPassword);
@@ -366,13 +367,13 @@ namespace backend.Repositories
 
         public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacher(string scheduleDate, string session, string day, int period)
         {
-            if(_context.Users != null)
+            if (_context.Users != null)
             {
                 try
                 {
                     string[] date = scheduleDate.Split('-');
                     string newDate = date[0] + "/" + date[1] + "/" + date[2];
-                    var teachers = await _context.Users.Where(user => user.IsDiabled == false 
+                    var teachers = await _context.Users.Where(user => user.IsDiabled == false
                                                                     && user.Role == Role.Teacher
                                                                     && user.Schedules.FirstOrDefault(a => a.ScheduleDate == DateTime.ParseExact(newDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
                                                                                                             && a.Session == SessionConverter(session)
@@ -383,7 +384,27 @@ namespace backend.Repositories
                     return new OkObjectResult(teachers);
                 }
                 catch (Exception e)
-                {   
+                {
+                    throw e;
+                }
+            }
+            return new NoContentResult();
+        }
+
+        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacherTask()
+        {
+            if (_context.Users != null)
+            {
+                try
+                {
+                    var teachers = await _context.Users.Where(user => user.IsDiabled == false
+                                                                    && user.Role == Role.Teacher)
+                                                        .Select(teacher => teacher.TeacherEntityToDTO())
+                                                        .ToListAsync();
+                    return new OkObjectResult(teachers);
+                }
+                catch (Exception e)
+                {
                     throw e;
                 }
             }

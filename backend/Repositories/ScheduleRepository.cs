@@ -165,12 +165,18 @@ namespace backend.Repositories
                         DateTime startDate = DateTime.ParseExact(newDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         var schedules = await _context.Schedules.Where(schedules => schedules.ClassroomId == classroomId
                                                                                     && schedules.ScheduleDate == startDate
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(1)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(2)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(3)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(4)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(5)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(6))
+                                                                                    || schedules.ClassroomId == classroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(1)
+                                                                                    || schedules.ClassroomId == classroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(2)
+                                                                                    || schedules.ClassroomId == classroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(3)
+                                                                                    || schedules.ClassroomId == classroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(4)
+                                                                                    || schedules.ClassroomId == classroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(5)
+                                                                                    || schedules.ClassroomId == classroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(6))
                                                                 .Select(schedule => schedule.ScheduleEntitytoClassroomDTO())
                                                                 .ToListAsync();
                         return new OkObjectResult(schedules);
@@ -201,13 +207,19 @@ namespace backend.Repositories
                         string newDate = startDay + "/" + startMoth + "/" + startYear;
                         DateTime startDate = DateTime.ParseExact(newDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         var schedules = await _context.Schedules.Where(schedules => schedules.UserId == teacherId
-                                                                                    && schedules.ScheduleDate == startDate
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(1)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(2)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(3)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(4)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(5)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(6))
+                                                                        && schedules.ScheduleDate == startDate
+                                                                        || schedules.UserId == teacherId
+                                                                        && schedules.ScheduleDate == startDate.AddDays(1)
+                                                                        || schedules.UserId == teacherId
+                                                                        && schedules.ScheduleDate == startDate.AddDays(2)
+                                                                        || schedules.UserId == teacherId
+                                                                        && schedules.ScheduleDate == startDate.AddDays(3)
+                                                                        || schedules.UserId == teacherId
+                                                                        && schedules.ScheduleDate == startDate.AddDays(4)
+                                                                        || schedules.UserId == teacherId
+                                                                        && schedules.ScheduleDate == startDate.AddDays(5)
+                                                                        || schedules.UserId == teacherId
+                                                                        && schedules.ScheduleDate == startDate.AddDays(6))
                                                                 .Select(schedule => schedule.ScheduleEntitytoTeacherDTO())
                                                                 .ToListAsync();
                         return new OkObjectResult(schedules);
@@ -239,12 +251,18 @@ namespace backend.Repositories
                         DateTime startDate = DateTime.ParseExact(newDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         var schedules = await _context.Schedules.Where(schedules => schedules.ClassroomId == foundStudent.ClassroomId
                                                                                     && schedules.ScheduleDate == startDate
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(1)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(2)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(3)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(4)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(5)
-                                                                                    || schedules.ScheduleDate == startDate.AddDays(6))
+                                                                                    || schedules.ClassroomId == foundStudent.ClassroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(1)
+                                                                                    || schedules.ClassroomId == foundStudent.ClassroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(2)
+                                                                                    || schedules.ClassroomId == foundStudent.ClassroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(3)
+                                                                                    || schedules.ClassroomId == foundStudent.ClassroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(4)
+                                                                                    || schedules.ClassroomId == foundStudent.ClassroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(5)
+                                                                                    || schedules.ClassroomId == foundStudent.ClassroomId
+                                                                                    && schedules.ScheduleDate == startDate.AddDays(6))
                                                                 .Select(schedule => schedule.ScheduleEntitytoStudentDTO())
                                                                 .ToListAsync();
                         return new OkObjectResult(schedules);

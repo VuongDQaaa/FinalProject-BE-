@@ -226,8 +226,7 @@ namespace backend.Repositories
                 if (login.NewPassword != login.ConfirmPassword) throw new AppException("Confirm password is wrong");
                 if (foundStudent.IsFirstLogin == false) throw new AppException("This is not your first login");
                 if (foundStudent != null
-
-                    && login.NewPassword.Length > 8
+                    && login.NewPassword.Length >= 8
                     && login.NewPassword.Length < 255)
                 {
                     foundStudent.PasswordHash = BCrypt.Net.BCrypt.HashPassword(login.NewPassword);

@@ -88,5 +88,10 @@ namespace backend.Services
         {
             return await _repository.SearchTeacher(scheduleDate, session, day, period);
         }
+
+        public async Task<ActionResult<List<SearchTeacherDTO>>> SearchTeacherTask()
+        {
+            return await _repository.SearchTeacherTask();
+        }
     }
 }
