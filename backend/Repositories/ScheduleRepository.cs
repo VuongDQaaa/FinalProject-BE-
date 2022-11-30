@@ -31,9 +31,13 @@ namespace backend.Repositories
             var foundUser = _context.Users.FirstOrDefault(a => a.UserName == scheduleModel.UserName);
             if (foundUser != null)
             {
+                string[] date = scheduleModel.ScheduleDate.Split('-');
+                string newDate = date[0] + "/" + date[1] + "/" + date[2];
+                DateTime checkeddate = DateTime.ParseExact(newDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 var foundSchedule = _context.Schedules.FirstOrDefault(a => a.Session == SessionConverter(scheduleModel.Session)
                                                                         && a.Period == scheduleModel.Period
                                                                         && a.Day == DayConverter(scheduleModel.Day)
+                                                                        && a.ScheduleDate == checkeddate
                                                                         && a.UserId == foundUser.UserId);
                 if (foundSchedule == null)
                 {
